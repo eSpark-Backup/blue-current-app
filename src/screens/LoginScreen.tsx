@@ -10,16 +10,23 @@ import {
 import AuthBackgroundWrapper from '../components/AuthBackgroundWrapper';
 import MyText from '../components/MyText';
 import { Theme, useTheme } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/authSlice';
 import MyInput from '../components/MyInput';
 import { hp, wp } from '../utils';
 import Icon from 'react-native-vector-icons/Ionicons';
 import EIcon from 'react-native-vector-icons/Entypo';
 import Space from '../components/Space';
+import LoadingSheet from '../components/LoadingSheet';
 
-export default function LoginScreen() {
+const LoginScreen = () => {
   const theme: Theme = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showLoader, setShowLoader] = useState(false);
+  const dispatch = useDispatch();
+  // You can set userType based on your logic, here defaulting to 'user'
+  const userType: 'user' | 'engineer' = 'engineer';
   return (
     <AuthBackgroundWrapper>
       <View style={styles.container}>
@@ -60,7 +67,11 @@ export default function LoginScreen() {
         />
 
         <View style={styles.buttonWrapper}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={() => setShowLoader(true)}
+          >
             <EIcon name="mail" size={wp(6)} color="#fff" />
             <MyText fontSize={hp(2.2)} fontFamily="Outfit-SemiBold">
               Continue with Email
@@ -68,10 +79,18 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      <LoadingSheet
+        visible={showLoader}
+        onComplete={() => {
+          setShowLoader(false);
+          dispatch(login({ userType }));
+        }}
+      />
     </AuthBackgroundWrapper>
   );
 }
 
+export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
