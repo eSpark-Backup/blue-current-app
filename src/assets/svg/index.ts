@@ -8,6 +8,12 @@ import ActiveFirmware from './ActiveFirmware.svg';
 import ActiveScan from './ActiveScan.svg';
 import ActiveExplore from './ActiveExplore.svg';
 import ActiveSettings from './ActiveSetting.svg';
+import LeftArrow from './LeftArrow.svg';
+import NotificationSvg from './NotificationSvg.svg';
+import ProfileSvg from './ProfileSvg.svg';
+import HomeScheduleIconSvg from './HomeScheduleIcon.svg';
+import HomeStartServiceIcon from './HomeStartServiceIcon.svg';
+import HomeSystemIcon from './HomeSystemIcon.svg';
 
 
 
@@ -22,4 +28,10 @@ export {
   ActiveScan,
   ActiveExplore,
   ActiveSettings,
+  LeftArrow,
+  NotificationSvg,
+  ProfileSvg,
+  HomeScheduleIconSvg,
+  HomeStartServiceIcon,
+  HomeSystemIcon,
 };

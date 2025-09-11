@@ -7,6 +7,8 @@ export const fontFamilies = {
   'Gilroy-Light': 'Gilroy-Light',
   'Gilroy-LightItalic': 'Gilroy-LightItalic',
   'Gilroy-MediumItalic': 'Gilroy-MediumItalic',
+  'Gilroy-Medium': 'Gilroy-Medium',
+  'Gilroy-SemiBold': 'Gilroy-SemiBold',
   'Gilroy-Regular': 'Gilroy-Regular',
   'Gilroy-RegularItalic': 'Gilroy-RegularItalic',
   'Gilroy-SemiBoldItalic': 'Gilroy-SemiBoldItalic',
