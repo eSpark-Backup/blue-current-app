@@ -14,6 +14,9 @@ import ProfileSvg from './ProfileSvg.svg';
 import HomeScheduleIconSvg from './HomeScheduleIcon.svg';
 import HomeStartServiceIcon from './HomeStartServiceIcon.svg';
 import HomeSystemIcon from './HomeSystemIcon.svg';
+import NextJobGearSvg from './NextJobGearSvg.svg';
+import UserSvg from './UserSvg.svg';
+import InfoSvg from './InfoSvg.svg';
 
 
 
@@ -34,4 +37,7 @@ export {
   HomeScheduleIconSvg,
   HomeStartServiceIcon,
   HomeSystemIcon,
+  NextJobGearSvg,
+  UserSvg,
+  InfoSvg,
 };
