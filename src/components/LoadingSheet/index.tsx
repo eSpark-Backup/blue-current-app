@@ -43,7 +43,7 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
     if (visible) {
       animatedValue.setValue(0);
       Animated.timing(animatedValue, {
-        toValue: 100,
+        toValue: 110,
         duration,
         easing: Easing.linear,
         useNativeDriver: false,

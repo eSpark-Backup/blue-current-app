@@ -13,11 +13,20 @@ import {
 import DeviceCard from '../../components/DeviceCard';
 import { connectedDevices, inProgressJobs } from '../../utils/constants';
 import HomeJobCard from '../../components/HomeJobCard';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { EngineerStackParamList } from '../../navigation';
 
 export default function HomeScreen() {
+  const navigation = useNavigation<StackNavigationProp<EngineerStackParamList>>();
   return (
     <View style={styles.container}>
-      <Header isBack isNotification isProfile />
+      <Header
+        isBack
+        isNotification
+        isProfile
+        onNotificationPress={() => navigation.navigate('Notification')}
+      />
       <ScrollView
         contentContainerStyle={styles.innerContainer}
         nestedScrollEnabled={true}
