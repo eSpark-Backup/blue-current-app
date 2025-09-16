@@ -17,6 +17,7 @@ import HomeSystemIcon from './HomeSystemIcon.svg';
 import NextJobGearSvg from './NextJobGearSvg.svg';
 import UserSvg from './UserSvg.svg';
 import InfoSvg from './InfoSvg.svg';
+import CameraSvg from './CameraSvg.svg';
 
 
 
@@ -40,4 +41,5 @@ export {
   NextJobGearSvg,
   UserSvg,
   InfoSvg,
+  CameraSvg
 };
