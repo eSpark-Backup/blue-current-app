@@ -5,6 +5,7 @@ import Space from '../Space';
 import { hp, wp } from '../../utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
+import MyText from '../MyText';
 
 export interface HeaderProps {
   isBack?: boolean;
@@ -14,6 +15,7 @@ export interface HeaderProps {
   isProfile?: boolean;
   onProfilePress?: () => void;
   activeScreen?: "Notification" | "Profile" | null;
+  title?: string | null;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -24,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({
   isProfile = false,
   onProfilePress = () => {},
   activeScreen = null,
+  title = null
 }) => {
   const insets = useSafeAreaInsets();
   const theme: Theme = useTheme();
@@ -46,15 +49,24 @@ const Header: React.FC<HeaderProps> = ({
         )}
       </View>
 
+      {title && (
+        <View>
+          <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
+            {title}
+          </MyText>
+        </View>
+      )}
       <View style={styles.rightContainer}>
         {isNotification && (
-          <TouchableOpacity onPress={() => {
-            if (onNotificationPress) {
-              onNotificationPress();
-            } else {
-              navigation?.navigate?.('Notification' as never);
-            }
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              if (onNotificationPress) {
+                onNotificationPress();
+              } else {
+                navigation?.navigate?.('Notification' as never);
+              }
+            }}
+          >
             <NotificationSvg
               color={
                 activeScreen == 'Notification' ? theme.colors.primary : '#fff'
