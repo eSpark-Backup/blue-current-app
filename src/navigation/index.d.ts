@@ -8,4 +8,6 @@ export type EngineerStackParamList = {
   Scan: undefined;
   Explore: undefined;
   Settings: undefined;
+  DeviceCheckInScreen: undefined;
+  ServiceHubScreen: undefined;
 };
