@@ -6,6 +6,7 @@ import {
   Pressable,
   FlatList,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import Header from '../../components/Header';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -19,9 +20,11 @@ import {
   NextJobGearSvg,
   UserSvg,
 } from '../../assets/svg';
+import { EngineerStackParamList } from '../../navigation';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export default function FirmwareScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<EngineerStackParamList>>();
   const theme = useTheme();
   return (
     <View style={styles.container}>
@@ -51,6 +54,7 @@ export default function FirmwareScreen() {
             </MyText>
           </View>
           <HomeStartServiceIcon
+            onPress={() => navigation.navigate('DeviceCheckInScreen')}
             height={hp(4)}
             width={hp(4)}
             style={styles.iconCenter}
@@ -131,7 +135,7 @@ export default function FirmwareScreen() {
           </View>
         </View>
         <Space mB={hp(2)} />
-        <View style={styles.jobCard}>
+        <TouchableOpacity activeOpacity={.8} onPress={() => navigation.navigate('ServiceHubScreen')} style={styles.jobCard}>
           <View style={styles.jobCardHeaderOverdue}>
             <View style={styles.jobCardHeaderOverdueLeft}>
               <InfoSvg height={hp(3)} width={hp(3)} />
@@ -154,7 +158,7 @@ export default function FirmwareScreen() {
               Diagnostic
             </MyText>
           </View>
-        </View>
+        </TouchableOpacity>
         <Space mB={hp(4)} />
         <Pressable style={styles.viewAllJobsButton}>
           <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2)}>
