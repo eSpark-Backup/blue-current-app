@@ -18,6 +18,8 @@ import NextJobGearSvg from './NextJobGearSvg.svg';
 import UserSvg from './UserSvg.svg';
 import InfoSvg from './InfoSvg.svg';
 import CameraSvg from './CameraSvg.svg';
+import Filter from './Filter.svg';
+import ModalSuccessSvg from './ModalSuccessSvg.svg';
 
 
 
@@ -41,5 +43,7 @@ export {
   NextJobGearSvg,
   UserSvg,
   InfoSvg,
-  CameraSvg
+  CameraSvg,
+  Filter,
+  ModalSuccessSvg
 };
