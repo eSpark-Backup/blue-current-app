@@ -12,6 +12,8 @@ import ProfileScreen from '../screens/engineer/ProfileScreen';
 import { hp } from '../utils';
 import ServiceHubScreen from '../screens/engineer/ServiceHubScreen';
 import DeviceCheckInScreen from '../screens/engineer/DeviceCheckInScreen';
+import CompleteJobs from '../screens/engineer/CompleteJobs';
+import UserNotes from '../screens/engineer/UserNotes';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,7 +23,7 @@ export default function EngineerTabNavigator() {
     return (
       <Tab.Navigator
         tabBar={props => <EngineerBottomTabBar {...props} />}
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: true,
           tabBarStyle: {
@@ -48,6 +50,27 @@ export default function EngineerTabNavigator() {
             tabBarButton: () => null,
           }}
         />
+        <Tab.Screen
+          name="ServiceHubScreen"
+          component={ServiceHubScreen}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="CompleteJobs"
+          component={CompleteJobs}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="UserNotes"
+          component={UserNotes}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
       </Tab.Navigator>
     );
   }
@@ -56,7 +79,6 @@ export default function EngineerTabNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTabs" component={TabsOnly} />
       <Stack.Screen name="DeviceCheckInScreen" component={DeviceCheckInScreen} />
-      <Stack.Screen name="ServiceHubScreen" component={ServiceHubScreen} />
     </Stack.Navigator>
   );
 }

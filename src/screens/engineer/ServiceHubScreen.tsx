@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Pressable,
 } from 'react-native';
 import MyText from '../../components/MyText';
 import Header from '../../components/Header';
@@ -13,34 +14,31 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { EngineerStackParamList } from '../../navigation';
 import { hp } from '../../utils';
 
-interface JobCardProps {
-  title: string;
-  technician: string;
-  serviceType: string;
-  daysRemaining: number;
-}
-
-const JobCard: React.FC<JobCardProps> = ({
-  title,
-  technician,
-  serviceType,
-  daysRemaining,
-}) => {
-  const styles = useStyles();
-  return (
-    <View style={styles.jobCard}>
-      <View style={styles.jobInfo}>
-        <MyText fontFamily='Gilroy-SemiBold' style={styles.jobTitle}>{title}</MyText>
-        <MyText fontFamily='Gilroy-Regular' style={styles.jobTechnician}>{technician}</MyText>
-        <MyText fontFamily='Gilroy-Regular' style={styles.jobServiceType}>{serviceType}</MyText>
-      </View>
-      <View style={styles.daysContainer}>
-        <MyText fontFamily='Gilroy-SemiBold' style={styles.daysNumber}>{daysRemaining}</MyText>
-        <MyText fontFamily='Gilroy-Regular' style={styles.daysText}>Days</MyText>
-      </View>
-    </View>
-  );
-};
+import JobCard from '../../components/JobCard';
+import { upcomingJobs } from '../../utils/constants';
+import { Filter } from '../../assets/svg';
+import MapView, { Marker } from 'react-native-maps';
+// Example marker data
+const jobMarkers = [
+  {
+    id: 1,
+    title: 'Job 1',
+    description: 'GrippaMax RODI System',
+    coordinate: { latitude: 51.521, longitude: -0.227 },
+  },
+  {
+    id: 2,
+    title: 'Job 2',
+    description: 'Maintenance Service',
+    coordinate: { latitude: 51.523, longitude: -0.225 },
+  },
+  {
+    id: 3,
+    title: 'Job 3',
+    description: 'Other Service',
+    coordinate: { latitude: 51.519, longitude: -0.229 },
+  },
+];
 
 const ServiceHubScreen = () => {
   const navigation =
@@ -49,26 +47,6 @@ const ServiceHubScreen = () => {
     'calendar',
   );
 
-  const upcomingJobs = [
-    {
-      title: 'GrippaMax RODI System',
-      technician: 'John Doe',
-      serviceType: 'Maintenance Service',
-      daysRemaining: 3,
-    },
-    {
-      title: 'GrippaMax RODI System',
-      technician: 'John Doe',
-      serviceType: 'Maintenance Service',
-      daysRemaining: 3,
-    },
-    {
-      title: 'GrippaMax RODI System',
-      technician: 'John Doe',
-      serviceType: 'Maintenance Service',
-      daysRemaining: 3,
-    },
-  ];
 
   const styles = useStyles();
   return (
@@ -78,7 +56,6 @@ const ServiceHubScreen = () => {
         onBackPress={() =>
           navigation?.canGoBack?.() ? navigation?.goBack() : null
         }
-        title={'Service Worksheet'}
       />
       <ScrollView
         style={styles.scrollView}
@@ -137,29 +114,91 @@ const ServiceHubScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Upcoming Jobs Section */}
-        <View style={styles.section}>
-          <MyText fontFamily="Gilroy-SemiBold" style={styles.sectionTitle}>
-            Upcoming Jobs
-          </MyText>
+        {/* Tab Content Section */}
+        {activeTab === 'calendar' && (
+          <>
+            <View style={styles.section}>
+              <MyText fontFamily="Gilroy-SemiBold" style={styles.sectionTitle}>
+                Upcoming Jobs
+              </MyText>
 
-          {upcomingJobs.map((job, index) => (
-            <JobCard
-              key={index}
-              title={job.title}
-              technician={job.technician}
-              serviceType={job.serviceType}
-              daysRemaining={job.daysRemaining}
-            />
-          ))}
-        </View>
+              {upcomingJobs.map((job, index) => (
+                <JobCard
+                  key={index}
+                  title={job.title}
+                  technician={job.technician}
+                  serviceType={job.serviceType}
+                  daysRemaining={job.daysRemaining}
+                />
+              ))}
+            </View>
 
-        {/* View Completed Jobs Button */}
-        <TouchableOpacity style={styles.completedJobsButton}>
-          <MyText fontFamily="Gilroy-SemiBold" style={styles.completedJobsText}>
-            View Completed Jobs
-          </MyText>
-        </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('CompleteJobs')}
+              style={styles.completedJobsButton}
+            >
+              <MyText
+                fontFamily="Gilroy-SemiBold"
+                style={styles.completedJobsText}
+              >
+                View Completed Jobs
+              </MyText>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {activeTab === 'list' && (
+          <View style={styles.section}>
+            <Pressable
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: 10,
+                marginBottom: 20,
+              }}
+            >
+              <Filter />
+              <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.4)}>
+                Filter
+              </MyText>
+            </Pressable>
+            {upcomingJobs.map((job, index) => (
+              <JobCard
+                key={index}
+                title={job.title}
+                technician={job.technician}
+                serviceType={job.serviceType}
+                daysRemaining={job.daysRemaining}
+                isPending
+                onStartJob={() => navigation.navigate('UserNotes')}
+              />
+            ))}
+          </View>
+        )}
+
+        {activeTab === 'map' && (
+          <View style={[styles.section, { flex: 1, minHeight: hp(70) }]}> 
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 51.521,
+                longitude: -0.227,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }}
+            >
+              {jobMarkers.map(marker => (
+                <Marker
+                  key={marker.id}
+                  coordinate={marker.coordinate}
+                  title={marker.title}
+                  description={marker.description}
+                />
+              ))}
+            </MapView>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -223,6 +262,12 @@ const useStyles = () => {
       fontSize: 24,
       color: '#FFFFFF',
       marginBottom: 20,
+    },
+    map: {
+      width: '100%',
+      height: hp(60),
+      borderRadius: 12,
+      marginBottom: 16,
     },
     jobCard: {
       backgroundColor: '#181A209C',
