@@ -75,3 +75,24 @@ export const connectedDevices = [
     isConnected: true,
   },
 ];
+
+export const upcomingJobs = [
+    {
+      title: 'GrippaMax RODI System',
+      technician: 'John Doe',
+      serviceType: 'Maintenance Service',
+      daysRemaining: 3,
+    },
+    {
+      title: 'GrippaMax RODI System',
+      technician: 'John Doe',
+      serviceType: 'Maintenance Service',
+      daysRemaining: 3,
+    },
+    {
+      title: 'GrippaMax RODI System',
+      technician: 'John Doe',
+      serviceType: 'Maintenance Service',
+      daysRemaining: 3,
+    },
+  ];

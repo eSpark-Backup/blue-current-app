@@ -9,13 +9,15 @@ const DeviceCard = ({
   isConnected = false,
   deviceName = 'Device Name',
   userName = 'User Name / Service',
+  containerStyle = {},
+  imageStyle = {},
 }) => {
   return (
-    <View style={styles.cardContainer}>
+    <View style={[styles.cardContainer, containerStyle]}>
       <View style={styles.innerContainer}>
         <Image
           source={{ uri: 'https://picsum.photos/200/300' }}
-          style={styles.deviceImage}
+          style={[styles.deviceImage, imageStyle]}
         />
         <Space mT={10} />
         <View>
@@ -44,12 +46,14 @@ const DeviceCard = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#262A34',
+    backgroundColor: '#262A3490',
     paddingVertical: hp(1.2),
     borderRadius: hp(1.2),
     marginBottom: hp(2),
     width: hp(20),
     alignItems: 'center',
+    borderWidth: .5,
+    borderColor: '#00C9FF3B',
   },
   innerContainer: {
     alignItems: 'flex-start',
