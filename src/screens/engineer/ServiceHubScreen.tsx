@@ -18,6 +18,7 @@ import JobCard from '../../components/JobCard';
 import { upcomingJobs } from '../../utils/constants';
 import { Filter } from '../../assets/svg';
 import MapView, { Marker } from 'react-native-maps';
+import { FilterActionSheet, FilterOption } from '../../components/FilterActionSheet';
 // Example marker data
 const jobMarkers = [
   {
@@ -46,7 +47,26 @@ const ServiceHubScreen = () => {
   const [activeTab, setActiveTab] = useState<'calendar' | 'list' | 'map'>(
     'calendar',
   );
+  const [isActionSheetVisible, setIsActionSheetVisible] = useState(false)
+  const [filters, setFilters] = useState<FilterOption[]>([
+    { id: "completed", label: "Completed", checked: true },
+    { id: "todo", label: "To do", checked: true },
+    { id: "overdue", label: "Overdue", checked: true },
+  ])
 
+  const handleFilterToggle = (filterId: string) => {
+    setFilters((prevFilters) =>
+      prevFilters.map((filter) => (filter.id === filterId ? { ...filter, checked: !filter.checked } : filter)),
+    )
+  }
+
+  const openActionSheet = () => {
+    setIsActionSheetVisible(true)
+  }
+
+  const closeActionSheet = () => {
+    setIsActionSheetVisible(false)
+  }
 
   const styles = useStyles();
   return (
@@ -157,6 +177,7 @@ const ServiceHubScreen = () => {
                 gap: 10,
                 marginBottom: 20,
               }}
+              onPress={openActionSheet}
             >
               <Filter />
               <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.4)}>
@@ -200,6 +221,12 @@ const ServiceHubScreen = () => {
           </View>
         )}
       </ScrollView>
+      <FilterActionSheet
+        visible={isActionSheetVisible}
+        onClose={closeActionSheet}
+        filters={filters}
+        onFilterToggle={handleFilterToggle}
+      />
     </View>
   );
 };
