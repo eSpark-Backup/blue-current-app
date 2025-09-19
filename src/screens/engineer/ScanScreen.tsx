@@ -5,8 +5,10 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import GradientButton from '../../components/GradientButton';
 import Modal from 'react-native-modal';
 import { Detected, DeviceSearching, DummyScanner } from '../../assets/images';
 import MyText from '../../components/MyText';
@@ -14,6 +16,9 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import Header from '../../components/Header';
 import { EngineerStackParamList } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import ConfirmationModal from '../../components/ConfirmationModal';
+import { ModalSuccessSvg } from '../../assets/svg';
+import { hp, wp } from '../../utils';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,9 +31,11 @@ type FlowStep =
   | 'credentials';
 
 export default function ScanScreen() {
-  const navigation = useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const navigation =
+    useNavigation<StackNavigationProp<EngineerStackParamList>>();
 
   const [visible, setVisible] = useState(true);
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState<FlowStep>('detecting');
   const [progress, setProgress] = useState(0);
   const styles = useStyles();
@@ -71,10 +78,8 @@ export default function ScanScreen() {
 
   const handleQRScan = () => {
     setTimeout(() => {
-      setCurrentStep('qrSuccess');
-      setTimeout(() => {
-        setCurrentStep('credentials');
-      }, 2000);
+      setVisible(false);
+      setConfirmationVisible(true);
     }, 1500);
   };
 
@@ -174,38 +179,56 @@ export default function ScanScreen() {
 
   const renderQRScannerScreen = () => (
     <View
-      style={[
-        styles.screenContainer,
-        { backgroundColor: '#181818', marginHorizontal: 60, borderRadius: 20 },
-      ]}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Dimensions.get('window').height - 150,
+      }}
     >
-      <TouchableOpacity style={styles.qrContainer} onPress={handleQRScan}>
-        <Image source={DummyScanner} style={{ width: '100%', height: 240 }} />
-      </TouchableOpacity>
-
-      <View style={{ padding: 24 }}>
-        <MyText fontFamily="Outfit-Regular" style={styles.qrInstructions}>
-          Scan the QR code available on the device{'\n'} to connect instantly.
-        </MyText>
-        <MyText fontFamily="Outfit-Medium" style={styles.orText}>
-          Or
-        </MyText>
-        <MyText fontFamily="Outfit-Regular" style={styles.qrInstructions}>
-          Input Credential
-        </MyText>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => setCurrentStep('credentials')}
-          style={styles.manualButton}
-        >
-          <MyText style={styles.manualButtonText}>Input Manually</MyText>
+      <View
+        style={[
+          styles.screenContainer,
+          {
+            backgroundColor: '#181818',
+            marginHorizontal: 60,
+            borderRadius: 20,
+          },
+        ]}
+      >
+        <TouchableOpacity style={styles.qrContainer} onPress={handleQRScan}>
+          <Image source={DummyScanner} style={{ width: '100%', height: 240 }} />
         </TouchableOpacity>
+
+        <View style={{ padding: 24 }}>
+          <MyText fontFamily="Outfit-Regular" style={styles.qrInstructions}>
+            Scan the QR code available on the device{'\n'} to connect instantly.
+          </MyText>
+          <MyText fontFamily="Outfit-Medium" style={styles.orText}>
+            Or
+          </MyText>
+          <MyText fontFamily="Outfit-Regular" style={styles.qrInstructions}>
+            Input Credential
+          </MyText>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setCurrentStep('credentials')}
+            style={styles.manualButton}
+          >
+            <MyText style={styles.manualButtonText}>Input Manually</MyText>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 
   const renderQRSuccessScreen = () => (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        styles.screenContainer,
+        { flex: 1, justifyContent: 'center', width: '100%' },
+      ]}
+    >
       <View style={styles.header}>
         <MyText style={styles.title}>Input Device Credential</MyText>
         <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
@@ -226,53 +249,66 @@ export default function ScanScreen() {
   );
 
   const renderCredentialsScreen = () => (
-    <View style={styles.screenContainer}>
-      <View style={styles.header}>
+    <View style={[styles.screenContainer, { padding: 24 }]}>
+      <View
+        style={[
+          styles.header,
+          { borderBottomWidth: 0, padding: 0, marginBottom: 10 },
+        ]}
+      >
         <MyText fontFamily="Outfit-SemiBold" style={styles.title}>
           Input Device Credential
         </MyText>
       </View>
 
       <MyText style={styles.subtitle}>
-        Please let us know what you are looking for
+        Please let us know what you are looking for.
       </MyText>
 
       <View style={styles.formContainer}>
         <View style={styles.inputGroup}>
-          <MyText style={styles.inputLabel}>Device Name</MyText>
           <View style={styles.inputContainer}>
-            <MyText style={styles.inputText}>Monitor ABC123</MyText>
+            <TextInput style={styles.inputText}>Device Name</TextInput>
           </View>
         </View>
 
         <View style={styles.inputGroup}>
-          <MyText style={styles.inputLabel}>Serial Number</MyText>
           <View style={styles.inputContainer}>
-            <MyText style={styles.inputText}>ABC1234567</MyText>
+            <TextInput style={styles.inputText}>Serial Name</TextInput>
           </View>
         </View>
 
         <View style={styles.inputGroup}>
-          <MyText style={styles.inputLabel}>Authentication Code</MyText>
           <View style={styles.inputContainer}>
-            <MyText style={styles.inputText}>••••••••••</MyText>
+            <TextInput style={styles.inputText}>Installation Date</TextInput>
+          </View>
+        </View>
+        <View style={styles.inputGroup}>
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.inputText}>Manufacturing Date</TextInput>
+          </View>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.inputText}>Software Version</TextInput>
           </View>
         </View>
       </View>
 
-      <View style={styles.finalButtonContainer}>
-        <TouchableOpacity style={styles.addButton}>
-          <MyText style={styles.addButtonText}>Add</MyText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.doneButton}
+      <View style={styles.singleButtonContainer}>
+        <GradientButton
+          title="Add"
           onPress={() => {
-            setVisible(true);
-            setCurrentStep('detecting');
+            setVisible(false);
+            setConfirmationVisible(true);
           }}
-        >
-          <MyText style={styles.doneButtonText}>Done</MyText>
-        </TouchableOpacity>
+          colors={["#1396B9", "#004F65"]}
+          width={wp('38%')}
+          height={hp('4.5%')}
+          buttonStyle={{ borderRadius: 5.42 }}
+          textStyle={{ fontSize: 16, fontWeight: '600' }}
+        />
       </View>
     </View>
   );
@@ -327,9 +363,21 @@ export default function ScanScreen() {
           isNotification
           isProfile
         />
-        <View style={{ flex: 1, justifyContent: 'center', width: '100%' }}>
-          {renderCurrentScreen()}
-        </View>
+        {renderCurrentScreen()}
+        <ConfirmationModal
+          isVisible={confirmationVisible}
+          title="Successfully Scan"
+          description="Your device has been successfully scanned!"
+          setIsVisible={setConfirmationVisible}
+          icon={<ModalSuccessSvg />}
+          onContinue={() => {
+            setConfirmationVisible(false);
+            setVisible(true);
+            setCurrentStep('detecting');
+            navigation?.goBack?.();
+          }}
+          backdropColor='#D9D9D936'
+        />
       </View>
     );
   }
@@ -566,22 +614,39 @@ const useStyles = () => {
       fontWeight: '500',
     },
     inputContainer: {
-      backgroundColor: '#2a2a2a',
+      backgroundColor: '#181818',
       borderRadius: 8,
       paddingHorizontal: 16,
-      paddingVertical: 14,
+      // paddingVertical: 14,
       borderWidth: 1,
-      borderColor: '#333',
+      borderColor: '#181818',
     },
     inputText: {
-      fontSize: 16,
-      color: '#fff',
+      fontSize: 12,
+      color: '#646667',
+      fontFamily: 'Outfit-Regular',
     },
     finalButtonContainer: {
       flexDirection: 'row',
       gap: 12,
       marginTop: 16,
     },
+      singleButtonContainer: {
+        alignItems: 'center',
+        marginTop: 16,
+      },
+      gradientAddButton: {
+        width: wp('38%'), // ~142px on 375px width
+        height: hp('4.5%'),
+        borderRadius: 5.42,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      gradientAddButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+      },
     addButton: {
       flex: 1,
       paddingVertical: 15,
