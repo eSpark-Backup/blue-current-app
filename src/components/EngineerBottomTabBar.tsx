@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { SvgUri } from 'react-native-svg';
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { hp, wp } from '../utils';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
@@ -9,7 +8,6 @@ import {
   ActiveExplore,
   ActiveFirmware,
   ActiveHome,
-  ActiveScan,
   ActiveSettings,
   Explore,
   Firmware,
@@ -17,6 +15,7 @@ import {
   Scan,
   Settings,
 } from '../assets/svg';
+import { ActiveScan } from '../assets/images';
 
 const PRIMARY_COLOR = '#00C9FF';
 
@@ -54,7 +53,14 @@ export default function EngineerBottomTabBar({
       icon: (isFocused: boolean) => (
         <>
           {isFocused ? (
-            <ActiveScan width={hp(10)} height={hp(10)} />
+            <Image
+              source={ActiveScan}
+              style={{
+                width: hp(15),
+                height: hp(19),
+                top: hp(4),
+               }}
+            />
           ) : (
             <Scan width={hp(10)} height={hp(10)} />
           )}
