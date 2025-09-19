@@ -11,6 +11,7 @@ interface ConfirmationModalProps {
   isVisible: boolean;
   setIsVisible: (visible: boolean) => void;
   onContinue?: () => void;
+  backdropColor?: string;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -20,12 +21,14 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   isVisible,
   setIsVisible,
   onContinue = () => {},
+  backdropColor = undefined
 }) => {
   const styles = useStyles();
   return (
     <Modal
       visible={isVisible}
-      transparent
+      transparent={backdropColor ? false : true}
+      backdropColor={backdropColor}
       animationType="fade"
       onRequestClose={() => setIsVisible(false)}
     >
