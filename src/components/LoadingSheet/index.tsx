@@ -84,7 +84,7 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
     <Modal transparent visible={visible} animationType="slide">
       <View style={styles.overlay}>
         <View style={[styles.sheet, { height }]}>
-          {!isHeader && (
+          {isHeader && (
             <View style={styles.header}>
               <MyText fontFamily="Outfit-Bold" fontSize={hp(2)}>
                 {headerTitle ?? 'Please Wait...'}

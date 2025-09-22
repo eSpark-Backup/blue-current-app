@@ -131,6 +131,7 @@ export default function DeviceVersion() {
         title="Updating New Version"
         headerTitle='Detected'
         setVisible={setShowLoader}
+        isHeader={true}
       />
 
       <ConfirmationModal
