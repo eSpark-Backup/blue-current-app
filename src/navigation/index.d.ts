@@ -12,4 +12,5 @@ export type EngineerStackParamList = {
   ServiceHubScreen: undefined;
   CompleteJobs: undefined;
   UserNotes: undefined;
+  DeviceVersion: undefined;
 };
