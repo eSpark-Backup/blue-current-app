@@ -20,6 +20,9 @@ import InfoSvg from './InfoSvg.svg';
 import CameraSvg from './CameraSvg.svg';
 import Filter from './Filter.svg';
 import ModalSuccessSvg from './ModalSuccessSvg.svg';
+import CalculatorStats from './CalculatorStats.svg';
+import SettingStats from './SettingStats.svg';
+import HistoryStats from './HistoryStats.svg';
 
 
 
@@ -45,5 +48,8 @@ export {
   InfoSvg,
   CameraSvg,
   Filter,
-  ModalSuccessSvg
+  ModalSuccessSvg,
+  CalculatorStats,
+  SettingStats,
+  HistoryStats,
 };
