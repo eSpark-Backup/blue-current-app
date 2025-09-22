@@ -129,6 +129,7 @@ export default function DeviceVersion() {
           setShowConfirmation(true);
         }}
         title="Updating New Version"
+        headerTitle='Detected'
         setVisible={setShowLoader}
       />
 

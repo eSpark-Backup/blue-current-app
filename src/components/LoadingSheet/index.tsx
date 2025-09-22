@@ -28,6 +28,7 @@ interface LoadingSheetProps {
   title?: string; // title text
   isHeader?: boolean; // if true, shows a header with a close button
   setVisible?: (visible: boolean) => void; // function to control visibility from parent
+  headerTitle?: string; // title text for header
 }
 
 const { height: screenHeight } = Dimensions.get('window');
@@ -44,6 +45,7 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
   title = null,
   isHeader = false,
   setVisible = () => {},
+  headerTitle = null
 }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const [progressNum, setProgressNum] = useState(0);
@@ -85,7 +87,7 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
           {!isHeader && (
             <View style={styles.header}>
               <MyText fontFamily="Outfit-Bold" fontSize={hp(2)}>
-                Loading...
+                {headerTitle ?? 'Please Wait...'}
               </MyText>
               <Pressable onPress={() => setVisible(false)} style={{ position: 'absolute', right: 20 }}>
                 <Icon name="close" size={24} color="white" />
