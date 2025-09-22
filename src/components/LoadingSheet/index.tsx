@@ -8,10 +8,13 @@ import {
   Easing,
   Dimensions,
   StyleSheet,
+  Pressable,
 } from 'react-native';
 import Space from '../Space';
 import { hp } from '../../utils';
 import MyText from '../MyText';
+import { useTheme } from '@react-navigation/native';
+import Icon  from 'react-native-vector-icons/Ionicons';
 
 interface LoadingSheetProps {
   visible: boolean;
@@ -22,6 +25,9 @@ interface LoadingSheetProps {
   trackColor?: string; // background circle color
   size?: number; // circle size
   strokeWidth?: number; // thickness
+  title?: string; // title text
+  isHeader?: boolean; // if true, shows a header with a close button
+  setVisible?: (visible: boolean) => void; // function to control visibility from parent
 }
 
 const { height: screenHeight } = Dimensions.get('window');
@@ -35,10 +41,13 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
   trackColor = '#2e2e2e',
   size = 150,
   strokeWidth = 12,
+  title = null,
+  isHeader = false,
+  setVisible = () => {},
 }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const [progressNum, setProgressNum] = useState(0);
-
+  const styles = useStyles();
   useEffect(() => {
     if (visible) {
       animatedValue.setValue(0);
@@ -73,6 +82,16 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
     <Modal transparent visible={visible} animationType="slide">
       <View style={styles.overlay}>
         <View style={[styles.sheet, { height }]}>
+          {!isHeader && (
+            <View style={styles.header}>
+              <MyText fontFamily="Outfit-Bold" fontSize={hp(2)}>
+                Loading...
+              </MyText>
+              <Pressable onPress={() => setVisible(false)} style={{ position: 'absolute', right: 20 }}>
+                <Icon name="close" size={24} color="white" />
+              </Pressable>
+            </View>
+          )}
           <View
             style={{
               justifyContent: 'center',
@@ -90,17 +109,23 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
               unfilledColor={trackColor}
               borderWidth={0}
               animated={true}
-              textStyle={{ fontSize: hp(2.5), color: 'white', fontWeight: 'bold' }}
+              textStyle={{
+                fontSize: hp(2.5),
+                color: 'white',
+                fontWeight: 'bold',
+              }}
             />
-            
+
             <Space mB={hp(3)} />
-            <MyText
-              fontFamily="Outfit-Bold"
-              fontSize={hp(2)}
-              style={styles.label}
-            >
-              Verification
-            </MyText>
+            {title && (
+              <MyText
+                fontFamily="Outfit-Bold"
+                fontSize={hp(2)}
+                style={styles.label}
+              >
+                {title}
+              </MyText>
+            )}
           </View>
         </View>
       </View>
@@ -108,7 +133,9 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const useStyles = () => {
+  const colors = useTheme().colors;
+  return  StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -131,6 +158,17 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 4,
   },
+  header: {
+    position: 'absolute',
+    top: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#0C222A',
+    width: '100%',
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
+}
 
 export default LoadingSheet;
