@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MyText from '../../components/MyText';
 import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +8,10 @@ import { EngineerStackParamList } from '../../navigation';
 import GradientButton from '../../components/GradientButton';
 import SelectableGrid from '../../components/SelectableGrid';
 import Space from '../../components/Space';
-import { hp } from '../../utils';
+import { hp, wp } from '../../utils';
+import { CalculatorStats, HistoryStats, SettingStats } from '../../assets/svg';
+import { InstalledDateIcon, LastServiceIcon, WarningIcon } from '../../assets/images';
+import HealthMetricCard from '../../components/HealthMetricCard';
 
 export default function ExploreScreen() {
   const navigation =
@@ -19,31 +21,20 @@ export default function ExploreScreen() {
     { title: '2,3,4', description: 'Current\nFirm Ware Version', icon: null },
     { title: '5,3,4', description: 'Current\nLog sets', icon: null },
     { title: '2,3,4', description: 'Watchlist\nDevices', icon: null },
-    { title: '2,3,4', description: 'Services Settings', icon: null },
-    { title: '2,3,4', description: 'Calculators', icon: null },
-    { title: '2,3,4', description: 'History Usage', icon: null },
+    { title: '2,3,4', description: 'Services Settings', icon: <SettingStats /> },
+    { title: '2,3,4', description: 'Calculators', icon: <CalculatorStats /> },
+    { title: '2,3,4', description: 'History Usage', icon: <HistoryStats /> },
   ];
-  const screenWidth = Dimensions.get('window').width;
-  // Assume each box is at least 110px wide including margin, max 3 per row
-  const minBoxWidth = 110;
-  const maxColumns = Math.min(3, Math.floor(screenWidth / minBoxWidth) || 1);
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Header
         isBack
         isNotification
         isProfile
         onBackPress={() => navigation?.goBack?.()}
       />
-      <View
-        style={{
-          padding: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 10,
-          justifyContent: 'space-between',
-        }}
-      >
+      <View style={styles.headerRow}>
         <View>
           <MyText fontFamily="Outfit-SemiBold" fontSize={36}>
             Dev123
@@ -55,34 +46,31 @@ export default function ExploreScreen() {
         <GradientButton
           title="Device Overview"
           onPress={() => navigation.navigate('Explore')}
-          buttonStyle={{ borderRadius: 8 }}
+          buttonStyle={styles.deviceOverviewButton}
         />
       </View>
-      <View
-        style={{
-          height: 0.4,
-          width: '80%',
-          backgroundColor: '#5E6272',
-          alignSelf: 'center',
-        }}
-      />
-      <View style={{ flex: 1, paddingHorizontal: 20 }}>
+      <View style={styles.divider80} />
+      <View style={styles.contentContainer}>
         <Space mB={hp(1)} />
         <SelectableGrid
           data={gridData}
           selectedIndex={selected}
-          onSelect={setSelected}
+          onSelect={(e) => {
+            setSelected(e);
+            if (e === 0) {
+              navigation.navigate('DeviceVersion');
+            }
+          }}
           numColumns={3}
           children={(item, idx, isSelected) => (
             <View
-              style={{
-                padding: 5,
-                paddingHorizontal: 15,
-                alignItems: 'flex-start',
-              }}
+              style={[
+                styles.gridItem,
+                item?.icon && styles.gridItemCenter,
+              ]}
             >
               {item?.icon ? (
-                <View>{item?.icon}</View>
+                <View style={styles.gridIcon}>{item?.icon}</View>
               ) : (
                 <MyText fontFamily="Outfit-SemiBold" fontSize={24}>
                   {item.title}
@@ -95,15 +83,87 @@ export default function ExploreScreen() {
           )}
         />
         <Space mB={hp(1.3)} />
-        <View
-          style={{
-            height: 0.4,
-            width: '85%',
-            backgroundColor: '#5E6272',
-            alignSelf: 'center',
-          }}
-        />
+        <View style={styles.divider85} />
+        <View style={styles.metricsContainer}>
+          <MyText
+            fontFamily="Outfit-SemiBold"
+            fontSize={24}
+            style={styles.metricsTitle}
+          >
+            Health Metrics
+          </MyText>
+          <Space mB={hp(1.3)} />
+          <HealthMetricCard
+            icon={InstalledDateIcon}
+            title="Installed Date"
+            date="12/03/2023"
+            update="Update 10weeks ago"
+          />
+          <Space mB={hp(1.3)} />
+          <HealthMetricCard
+            icon={LastServiceIcon}
+            title="Last Services"
+            date="12/03/2023"
+            update="Update 10weeks ago"
+          />
+          <Space mB={hp(1.3)} />
+          <HealthMetricCard
+            icon={WarningIcon}
+            title="Warning"
+            date="12/03/2023"
+            update="Update 10weeks ago"
+          />
+        </View>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  headerRow: {
+    padding: wp(5),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: wp(2.5),
+  },
+  deviceOverviewButton: {
+    borderRadius: wp(2),
+  },
+  divider80: {
+    height: 0.4,
+    width: '80%',
+    backgroundColor: '#5E6272',
+    alignSelf: 'center',
+  },
+  divider85: {
+    height: 0.4,
+    width: '85%',
+    backgroundColor: '#5E6272',
+    alignSelf: 'center',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: wp(5),
+  },
+  gridItem: {
+    paddingVertical: hp(0.6),
+    paddingHorizontal: wp(4),
+    alignItems: 'flex-start',
+  },
+  gridItemCenter: {
+    alignItems: 'center',
+  },
+  gridIcon: {
+    marginBottom: hp(1.2),
+  },
+  metricsContainer: {
+    paddingHorizontal: wp(3.5),
+  },
+  metricsTitle: {
+    marginTop: hp(1.3),
+  },
+});

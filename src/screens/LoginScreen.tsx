@@ -85,6 +85,7 @@ const LoginScreen = () => {
           setShowLoader(false);
           dispatch(login({ userType }));
         }}
+        title='Verification'
       />
     </AuthBackgroundWrapper>
   );
