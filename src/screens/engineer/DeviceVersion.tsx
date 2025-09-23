@@ -18,6 +18,7 @@ import GradientButton from '../../components/GradientButton';
 import LoadingSheet from '../../components/LoadingSheet';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { ModalSuccessSvg } from '../../assets/svg';
+import CustomTabBar from '../../components/CustomTabBar';
 
 export default function DeviceVersion() {
   const navigation =
@@ -57,6 +58,7 @@ export default function DeviceVersion() {
         isProfile
         onBackPress={() => navigation?.goBack?.()}
       />
+    
       <View style={styles.innerContainer}>
         <Space mB={hp(2)} />
         <View style={styles.centeredView}>
@@ -172,5 +174,8 @@ const styles = StyleSheet.create({
     height: hp(5),
     marginTop: hp(3),
     alignSelf: 'center',
+  },
+  tabBarContainer: {
+    marginBottom: 32,
   },
 });

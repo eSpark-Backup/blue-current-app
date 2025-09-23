@@ -12,6 +12,7 @@ import { hp, wp } from '../../utils';
 import { CalculatorStats, HistoryStats, SettingStats } from '../../assets/svg';
 import { InstalledDateIcon, LastServiceIcon, WarningIcon } from '../../assets/images';
 import HealthMetricCard from '../../components/HealthMetricCard';
+import CustomToggle from '../../components/CustomToggle';
 
 export default function ExploreScreen() {
   const navigation =
@@ -20,7 +21,7 @@ export default function ExploreScreen() {
   const gridData = [
     { title: '2,3,4', description: 'Current\nFirm Ware Version', icon: null },
     { title: '5,3,4', description: 'Current\nLog sets', icon: null },
-    { title: '2,3,4', description: 'Watchlist\nDevices', icon: null },
+    { title: 'Off', description: 'Watchlist\nDevices', icon: null, isDisabled: true },
     { title: '2,3,4', description: 'Services Settings', icon: <SettingStats /> },
     { title: '2,3,4', description: 'Calculators', icon: <CalculatorStats /> },
     { title: '2,3,4', description: 'History Usage', icon: <HistoryStats /> },
@@ -59,6 +60,12 @@ export default function ExploreScreen() {
             setSelected(e);
             if (e === 0) {
               navigation.navigate('DeviceVersion');
+            }else if (e === 1) {
+              navigation.navigate('LogSets');
+            }else if (e === 2) {
+              navigation.navigate('ServiceSetting');
+            }else if (e === 3) {
+              navigation.navigate('ServiceSetting');
             }
           }}
           numColumns={3}

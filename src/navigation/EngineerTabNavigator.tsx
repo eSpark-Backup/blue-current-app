@@ -15,6 +15,9 @@ import DeviceCheckInScreen from '../screens/engineer/DeviceCheckInScreen';
 import CompleteJobs from '../screens/engineer/CompleteJobs';
 import UserNotes from '../screens/engineer/UserNotes';
 import DeviceVersion from '../screens/engineer/DeviceVersion';
+import LogSets from '../screens/engineer/LogSets';
+import ServiceSetting from '../screens/engineer/ServiceSetting';
+import WorkSheet from '../screens/engineer/Worksheet';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -75,6 +78,27 @@ export default function EngineerTabNavigator() {
         <Tab.Screen
           name="DeviceVersion"
           component={DeviceVersion}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="LogSets"
+          component={LogSets}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="ServiceSetting"
+          component={ServiceSetting}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="WorkSheet"
+          component={WorkSheet}
           options={{
             tabBarButton: () => null,
           }}
