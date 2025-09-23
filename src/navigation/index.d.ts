@@ -13,4 +13,7 @@ export type EngineerStackParamList = {
   CompleteJobs: undefined;
   UserNotes: undefined;
   DeviceVersion: undefined;
+  LogSets: undefined;
+  ServiceSetting: undefined;
+  WorkSheet: undefined;
 };

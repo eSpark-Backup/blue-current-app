@@ -23,6 +23,7 @@ import ModalSuccessSvg from './ModalSuccessSvg.svg';
 import CalculatorStats from './CalculatorStats.svg';
 import SettingStats from './SettingStats.svg';
 import HistoryStats from './HistoryStats.svg';
+import UploadSvg from './uploadSvg.svg';
 
 
 
@@ -52,4 +53,5 @@ export {
   CalculatorStats,
   SettingStats,
   HistoryStats,
+  UploadSvg
 };

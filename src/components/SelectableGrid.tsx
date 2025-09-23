@@ -42,7 +42,7 @@ const SelectableGrid: React.FC<SelectableGridProps> = ({
           return (
             <TouchableOpacity
               key={idx}
-              style={boxStyles}
+              style={[boxStyles, { opacity: item?.isDisabled ? 0.5 : 1 }]}
               activeOpacity={0.85}
               onPress={() => onSelect(idx)}
             >
@@ -59,9 +59,10 @@ const SelectableGrid: React.FC<SelectableGridProps> = ({
           return (
             <TouchableOpacity
               key={idx}
-              style={[...boxStyles, { backgroundColor: '#262A34' }]}
+              style={[...boxStyles, { backgroundColor: '#262A34', opacity: item?.isDisabled ? 0.5 : 1 }]}
               activeOpacity={0.85}
               onPress={() => onSelect(idx)}
+              disabled={item?.isDisabled}
             >
               {children(item, idx, false)}
             </TouchableOpacity>
