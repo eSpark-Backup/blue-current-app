@@ -85,11 +85,11 @@ const LoginScreen = () => {
           setShowLoader(false);
           dispatch(login({ userType }));
         }}
-        title='Verification'
+        title="Verification"
       />
     </AuthBackgroundWrapper>
   );
-}
+};
 
 export default LoginScreen;
 const styles = StyleSheet.create({
