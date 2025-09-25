@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import MyText from '../../components/MyText';
 import Space from '../../components/Space';
 import NotificationCard from '../../components/NotificationCard';
-import { hp } from '../../utils';
+import { hp, wp } from '../../utils';
 
 const notifications = Array.from({ length: 10 }, (_, i) => ({
   id: i.toString(),
@@ -61,10 +61,11 @@ export default function NotificationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: wp(6),
   },
   scrollContent: {
     flexGrow: 1,
-    padding: hp(2),
+    paddingVertical: hp(2),
   },
   divider: {
     marginTop: hp(2),
