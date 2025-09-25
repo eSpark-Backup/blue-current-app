@@ -6,6 +6,8 @@ import { hp, wp } from '../../utils';
 
 type SettingsCardProps = {
   title?: string;
+  subtitle?: string; // 👈 new
+  rightText?: string; // 👈 new
   onPress?: () => void;
   icon?: React.ReactNode;
   isProfile?: boolean;
@@ -13,6 +15,8 @@ type SettingsCardProps = {
 
 const SettingsCard: React.FC<SettingsCardProps> = ({
   title = 'App Settings',
+  subtitle,
+  rightText,
   onPress,
   icon,
   isProfile = false,
@@ -20,29 +24,54 @@ const SettingsCard: React.FC<SettingsCardProps> = ({
   <TouchableOpacity
     style={styles.cardRow}
     onPress={onPress}
-    activeOpacity={isProfile ? 1 : 0.7}
-    disabled={isProfile}
+    activeOpacity={isProfile || subtitle ? 1 : 0.7}
   >
-    <View style={[styles.avatarContainer, isProfile && styles.avatarProfile]}>
-      {icon}
+    {/* Left Section */}
+    <View style={styles.leftSection}>
+      <View style={[styles.avatarContainer, isProfile && styles.avatarProfile]}>
+        {icon}
+      </View>
+      <View>
+        <MyText
+          fontFamily={isProfile ? 'Outfit-Regular' : 'Outfit-SemiBold'}
+          fontSize={hp(2.25)}
+        >
+          {title}
+        </MyText>
+        {subtitle && (
+          <MyText
+            fontFamily="Outfit-Regular"
+            fontSize={hp(1.6)}
+            color="#5E6272"
+            style={{ marginTop: hp(0.4) }}
+          >
+            {subtitle}
+          </MyText>
+        )}
+      </View>
     </View>
-    <MyText
-      fontFamily={isProfile ? 'Outfit-Regular' : 'Outfit-SemiBold'}
-      fontSize={hp(2.25)}
-      style={styles.text}
-    >
-      {title}
-    </MyText>
+
+    {/* Right-aligned text */}
+    {rightText && (
+      <MyText fontFamily="Outfit-Regular" fontSize={hp(1.6)} color="#5E6272">
+        {rightText}
+      </MyText>
+    )}
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   cardRow: {
     flexDirection: 'row',
-    gap: hp(1.8),
+    justifyContent: 'space-between', // 👈 keeps rightText aligned right
     paddingHorizontal: wp(3.8),
     paddingVertical: hp(1.2),
     alignItems: 'center',
+  },
+  leftSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: hp(1.8),
   },
   avatarContainer: {
     height: hp(5),
@@ -54,9 +83,6 @@ const styles = StyleSheet.create({
   },
   avatarProfile: {
     backgroundColor: 'transparent',
-  },
-  text: {
-    textAlignVertical: 'center',
   },
 });
 
