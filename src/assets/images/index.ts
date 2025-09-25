@@ -8,7 +8,7 @@ import InstalledDateIcon from './InstalledDateIcon.png';
 import LastServiceIcon from './LastServiceIcon.png';
 import WarningIcon from './WarningIcon.png';
 import IOTChip from './IOTChip.png';
-
+import DeviceOverviewMinted from './DeviceOverviewMinted.png';
 export {
   AuthBackground,
   DeviceSearching,
@@ -20,4 +20,5 @@ export {
   LastServiceIcon,
   WarningIcon,
   IOTChip,
+  DeviceOverviewMinted,
 };

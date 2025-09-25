@@ -26,7 +26,18 @@ import HistoryStats from './HistoryStats.svg';
 import UploadSvg from './uploadSvg.svg';
 import Phone from './Phone.svg';
 import ProfileHead from './ProfileHead.svg';
+import ActiveProfileHead from './ActiveProfileHead.svg';
 import Mail from './Mail.svg';
+import CameraOutline from './CameraOutline.svg';
+import DeviceOverview from './DeviceOverview.svg';
+import ActiveDeviceOverview from './ActiveDeviceOverview.svg';
+import Updates from './Updates.svg';
+import ActiveUpdates from './ActiveUpdates.svg';
+import DeviceLogo from './DeviceLogo.svg';
+import InstallLogo from './InstallLogo.svg';
+import VersionLogo from './VersionLogo.svg';
+import VisaLogo from './Visa.svg';
+import PlusSign from './Plus.svg';
 
 export {
   Home,
@@ -57,5 +68,16 @@ export {
   UploadSvg,
   Phone,
   ProfileHead,
+  ActiveProfileHead,
   Mail,
+  CameraOutline,
+  DeviceOverview,
+  ActiveDeviceOverview,
+  Updates,
+  ActiveUpdates,
+  DeviceLogo,
+  InstallLogo,
+  VersionLogo,
+  VisaLogo,
+  PlusSign,
 };

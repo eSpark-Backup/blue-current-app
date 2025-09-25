@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyText from '../MyText';
 import { Theme, useTheme } from '@react-navigation/native';
@@ -14,6 +20,7 @@ interface MyInputProps {
   variant?: MyInputVariant;
   secureTextEntry?: boolean;
   style?: any;
+  uColor?: string;
 }
 
 export default function MyInput({
@@ -24,18 +31,33 @@ export default function MyInput({
   variant = 'underline',
   secureTextEntry,
   style,
+  uColor,
 }: MyInputProps) {
   const theme: Theme = useTheme();
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View style={[styles.container, style]}>
-      <MyText fontSize={14} color="#3A3D46" fontFamily='Outfit-Bold' style={{ marginBottom: 4 }}>
+      <MyText
+        fontSize={14}
+        color="#3A3D46"
+        fontFamily="Outfit-Bold"
+        style={{ marginBottom: 4 }}
+      >
         {label}
       </MyText>
-      <View style={variant === 'rounded' ? [styles.roundedWrapper, { borderColor: theme.colors.primary }] : styles.underlineWrapper}>
+      <View
+        style={
+          variant === 'rounded'
+            ? [styles.roundedWrapper, { borderColor: theme.colors.primary }]
+            : styles.underlineWrapper
+        }
+      >
         <TextInput
-          style={[styles.input, variant === 'rounded' && { paddingHorizontal: 12 }]}
+          style={[
+            styles.input,
+            variant === 'rounded' && { paddingHorizontal: 12 },
+          ]}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -45,12 +67,19 @@ export default function MyInput({
           onBlur={() => setIsFocused(false)}
         />
         {!!value && (
-          <TouchableOpacity onPress={() => onChangeText('')} style={styles.clearIcon}>
+          <TouchableOpacity
+            onPress={() => onChangeText('')}
+            style={styles.clearIcon}
+          >
             <Icon name="close-circle" size={20} color="#3A3D46" />
           </TouchableOpacity>
         )}
       </View>
-      {variant === 'underline' && <View style={[styles.underline, { backgroundColor: '#A5F59C' }]} />}
+      {variant === 'underline' && (
+        <View
+          style={[styles.underline, { backgroundColor: uColor || '#A5F59C' }]}
+        />
+      )}
     </View>
   );
 }

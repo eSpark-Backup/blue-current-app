@@ -23,8 +23,8 @@ export type UserStackParamList = {
   Profile: undefined;
   Home: undefined;
   Firmware: undefined;
-  Scan: undefined;
-  Explore: undefined;
+  DeviceOverview: undefined;
+  Updates: undefined;
   Settings: undefined;
   AppSettings: undefined;
   // DeviceCheckInScreen: undefined;
