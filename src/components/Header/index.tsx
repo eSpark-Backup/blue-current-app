@@ -3,7 +3,10 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { LeftArrow, NotificationSvg, ProfileSvg } from '../../assets/svg';
 import Space from '../Space';
 import { hp, wp } from '../../utils';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import MyText from '../MyText';
 
@@ -32,58 +35,62 @@ const Header: React.FC<HeaderProps> = ({
   const theme: Theme = useTheme();
   const navigation = useNavigation();
   return (
-    <View
-      style={[
-        styles.header,
-        {
-          // paddingTop: insets.top,
-          borderBottomColor: theme.colors.primary,
-        },
-      ]}
-    >
-      <View>
-        {isBack && (
-          <TouchableOpacity onPress={onBackPress}>
-            <LeftArrow />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {title && (
+    <SafeAreaView>
+      <View
+        style={[
+          styles.header,
+          {
+            // paddingTop: insets.top,
+            borderBottomColor: theme.colors.primary,
+          },
+        ]}
+      >
         <View>
-          <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
-            {title}
-          </MyText>
+          {isBack && (
+            <TouchableOpacity onPress={onBackPress}>
+              <LeftArrow />
+            </TouchableOpacity>
+          )}
         </View>
-      )}
-      <View style={styles.rightContainer}>
-        {isNotification && (
-          <TouchableOpacity
-            onPress={() => {
-              if (onNotificationPress) {
-                onNotificationPress();
-              } else {
-                navigation?.navigate?.('Notification' as never);
-              }
-            }}
-          >
-            <NotificationSvg
-              color={
-                activeScreen == 'Notification' ? theme.colors.primary : '#fff'
-              }
-            />
-          </TouchableOpacity>
+
+        {title && (
+          <View>
+            <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
+              {title}
+            </MyText>
+          </View>
         )}
-        <Space mR={hp(1)} />
-        {isProfile && (
-          <TouchableOpacity onPress={onProfilePress}>
-            <ProfileSvg
-              color={activeScreen == 'Profile' ? theme.colors.primary : '#fff'}
-            />
-          </TouchableOpacity>
-        )}
+        <View style={styles.rightContainer}>
+          {isNotification && (
+            <TouchableOpacity
+              onPress={() => {
+                if (onNotificationPress) {
+                  onNotificationPress();
+                } else {
+                  navigation?.navigate?.('Notification' as never);
+                }
+              }}
+            >
+              <NotificationSvg
+                color={
+                  activeScreen == 'Notification' ? theme.colors.primary : '#fff'
+                }
+              />
+            </TouchableOpacity>
+          )}
+          <Space mR={hp(1)} />
+          {isProfile && (
+            <TouchableOpacity onPress={onProfilePress}>
+              <ProfileSvg
+                color={
+                  activeScreen == 'Profile' ? theme.colors.primary : '#fff'
+                }
+              />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

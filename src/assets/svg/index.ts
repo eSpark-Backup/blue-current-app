@@ -25,8 +25,8 @@ import SettingStats from './SettingStats.svg';
 import HistoryStats from './HistoryStats.svg';
 import UploadSvg from './uploadSvg.svg';
 import Phone from './Phone.svg';
-import ProfileHead from './profileHead.svg';
-import Mail from './mail.svg';
+import ProfileHead from './ProfileHead.svg';
+import Mail from './Mail.svg';
 
 export {
   Home,
