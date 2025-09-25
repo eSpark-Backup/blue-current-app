@@ -26,7 +26,7 @@ const LoginScreen = () => {
   const [showLoader, setShowLoader] = useState(false);
   const dispatch = useDispatch();
   // You can set userType based on your logic, here defaulting to 'user'
-  const userType: 'user' | 'engineer' = 'user';
+  const userType: 'user' | 'engineer' = 'engineer';
   return (
     <AuthBackgroundWrapper>
       <View style={styles.container}>

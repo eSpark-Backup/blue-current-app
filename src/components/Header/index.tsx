@@ -47,21 +47,21 @@ const Header: React.FC<HeaderProps> = ({
         },
       ]}
     >
-      <View>
-        {isBack && (
-          <TouchableOpacity onPress={onBackPress}>
-            <LeftArrow />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {title && (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View>
+          {isBack && (
+            <TouchableOpacity onPress={onBackPress}>
+              <LeftArrow />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {title && (
           <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
             {title}
           </MyText>
-        </View>
-      )}
+        )}
+      </View>
       <View style={styles.rightContainer}>
         {isNotification && (
           <TouchableOpacity
