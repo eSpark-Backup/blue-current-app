@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { EngineerStackParamList } from '../../navigation';
 import { hp, wp } from '../../utils';
-import { CalculatorStats, HistoryStats, SettingStats } from '../../assets/svg';
 import MeasurementGrid, {
   MeasurementData,
 } from '../../components/MeasurementGrid';
