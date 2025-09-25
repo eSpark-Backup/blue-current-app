@@ -17,7 +17,10 @@ import { EngineerStackParamList } from '../../navigation';
 import AddServiceForm from '../../components/AddServiceForm';
 import MyText from '../../components/MyText';
 import GradientButton from '../../components/GradientButton';
-import { UploadSvg } from '../../assets/svg';
+import { ModalSuccessSvg, UploadSvg } from '../../assets/svg';
+import ConfirmationModal from '../../components/ConfirmationModal';
+import LoadingSheet from '../../components/LoadingSheet';
+import Calendar from '../../components/Calendar';
 
 const WorkSheet: React.FC = () => {
   const navigation =
@@ -38,6 +41,12 @@ const WorkSheet: React.FC = () => {
   ]);
 
   const [showAddForm, setShowAddForm] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [watchlistVisible, setWatchlistVisible] = useState(false);
+  const [watchlistLoading, setWatchlistLoading] = useState(false);
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false)
+  const [reschedule, setReschedule] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
   const handleToggleService = (id: string) => {
     setServices(prevServices =>
@@ -78,6 +87,23 @@ const WorkSheet: React.FC = () => {
     );
   };
 
+    const handleDateSelect = (date: Date) => {
+    setSelectedDate(date)
+    setIsCalendarVisible(false)
+    setReschedule(true)
+  }
+
+  const formatDate = (date: Date | null) => {
+    if (!date) return "Select Date"
+
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+
+    return date.toLocaleDateString("en-US", options)
+  }
   return (
     <View style={styles.container}>
       <Header
@@ -131,17 +157,107 @@ const WorkSheet: React.FC = () => {
               </MyText>
             </View>
             <TouchableOpacity style={styles.uploadIcon}>
-              <UploadSvg width={wp(6)} height={hp(3)} style={styles.uploadIconText} />
+              <UploadSvg
+                width={wp(6)}
+                height={hp(3)}
+                style={styles.uploadIconText}
+              />
             </TouchableOpacity>
           </View>
         </View>
 
         <GradientButton
           title="Submit"
-          onPress={handleSubmit}
+          onPress={() => setUploadVisible(true)}
           buttonStyle={styles.gradientButton}
         />
       </ScrollView>
+      <ConfirmationModal
+        title="Successfully Upload"
+        description="details of device"
+        icon={<ModalSuccessSvg />}
+        isVisible={uploadVisible}
+        setIsVisible={setUploadVisible}
+        customButtons={
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.closeButton}
+              onPress={() => {
+                setIsCalendarVisible(true);
+                setUploadVisible(false);
+              }}
+            >
+              <MyText
+                fontFamily="Outfit-Regular"
+                style={styles.closeButtonText}
+              >
+                Reschedule
+              </MyText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.closeButton}
+              onPress={() => {
+                setUploadVisible(false);
+                setWatchlistLoading(true);
+              }}
+            >
+              <MyText
+                fontFamily="Outfit-Regular"
+                style={[styles.closeButtonText, { color: '#fff' }]}
+              >
+                Watchlist
+              </MyText>
+            </TouchableOpacity>
+          </View>
+        }
+      />
+      <ConfirmationModal
+        title={reschedule ? "Successfully Reschedule" : "Successfully Access Watchlist"}
+        description="details of device"
+        icon={<ModalSuccessSvg />}
+        isVisible={watchlistVisible || reschedule}
+        setIsVisible={watchlistVisible ? setWatchlistVisible : setReschedule}
+        customButtons={
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.closeButton}
+              onPress={() => {
+                setWatchlistVisible(false);
+                setReschedule(false);
+                navigation.navigate('Explore');
+              }}
+            >
+              <MyText
+                fontFamily="Outfit-Regular"
+                style={styles.closeButtonText}
+              >
+                Go back to Device Dashboard
+              </MyText>
+            </TouchableOpacity>
+          </View>
+        }
+      />
+      <LoadingSheet
+        visible={watchlistLoading}
+        setVisible={setWatchlistLoading}
+        title="Waiting For User to Responds"
+        headerTitle="Watchlist Requested"
+        isHeader
+        onComplete={() => {
+          setWatchlistLoading(false);
+          setWatchlistVisible(true);
+        }}
+      />
+      <Calendar
+        isVisible={isCalendarVisible}
+        onClose={() => setIsCalendarVisible(false)}
+        selectedDate={selectedDate || undefined}
+        onDateSelect={handleDateSelect}
+        disablePastDates={true}
+      />
     </View>
   );
 };
@@ -232,6 +348,19 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: wp(4.5),
     fontWeight: '600',
+  },
+  closeButton: {
+    borderRadius: wp(2),
+    paddingVertical: hp(1),
+    paddingHorizontal: wp(8),
+    borderColor: '#181A20',
+    borderTopWidth: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: '#00C9FF',
+    fontSize: hp(1.7),
   },
 });
 
