@@ -110,7 +110,10 @@ export default function EngineerTabNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTabs" component={TabsOnly} />
-      <Stack.Screen name="DeviceCheckInScreen" component={DeviceCheckInScreen} />
+      <Stack.Screen
+        name="DeviceCheckInScreen"
+        component={DeviceCheckInScreen}
+      />
     </Stack.Navigator>
   );
 }

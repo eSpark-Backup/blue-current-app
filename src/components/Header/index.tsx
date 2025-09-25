@@ -14,7 +14,7 @@ export interface HeaderProps {
   onNotificationPress?: () => void;
   isProfile?: boolean;
   onProfilePress?: () => void;
-  activeScreen?: "Notification" | "Profile" | null;
+  activeScreen?: 'Notification' | 'Profile' | null;
   title?: string | null;
 }
 
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
   isProfile = false,
   onProfilePress = () => {},
   activeScreen = null,
-  title = null
+  title = null,
 }) => {
   const insets = useSafeAreaInsets();
   const theme: Theme = useTheme();
@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({
       style={[
         styles.header,
         {
-          paddingTop: insets.top,
+          // paddingTop: insets.top,
           borderBottomColor: theme.colors.primary,
         },
       ]}
@@ -77,7 +77,9 @@ const Header: React.FC<HeaderProps> = ({
         <Space mR={hp(1)} />
         {isProfile && (
           <TouchableOpacity onPress={onProfilePress}>
-            <ProfileSvg />
+            <ProfileSvg
+              color={activeScreen == 'Profile' ? theme.colors.primary : '#fff'}
+            />
           </TouchableOpacity>
         )}
       </View>
