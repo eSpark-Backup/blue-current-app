@@ -1,6 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
-import { LeftArrow, NotificationSvg, ProfileSvg } from '../../assets/svg';
+import {
+  ActiveProfileHead,
+  LeftArrow,
+  NotificationSvg,
+  ProfileHead,
+  ProfileSvg,
+} from '../../assets/svg';
 import Space from '../Space';
 import { hp, wp } from '../../utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -41,21 +47,21 @@ const Header: React.FC<HeaderProps> = ({
         },
       ]}
     >
-      <View>
-        {isBack && (
-          <TouchableOpacity onPress={onBackPress}>
-            <LeftArrow />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {title && (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View>
+          {isBack && (
+            <TouchableOpacity onPress={onBackPress}>
+              <LeftArrow />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {title && (
           <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
             {title}
           </MyText>
-        </View>
-      )}
+        )}
+      </View>
       <View style={styles.rightContainer}>
         {isNotification && (
           <TouchableOpacity
@@ -77,9 +83,7 @@ const Header: React.FC<HeaderProps> = ({
         <Space mR={hp(1)} />
         {isProfile && (
           <TouchableOpacity onPress={onProfilePress}>
-            <ProfileSvg
-              color={activeScreen == 'Profile' ? theme.colors.primary : '#fff'}
-            />
+            {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
           </TouchableOpacity>
         )}
       </View>
