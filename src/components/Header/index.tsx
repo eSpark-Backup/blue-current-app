@@ -1,6 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
-import { LeftArrow, NotificationSvg, ProfileSvg } from '../../assets/svg';
+import {
+  ActiveProfileHead,
+  LeftArrow,
+  NotificationSvg,
+  ProfileHead,
+  ProfileSvg,
+} from '../../assets/svg';
 import Space from '../Space';
 import { hp, wp } from '../../utils';
 import {
@@ -54,11 +60,34 @@ const Header: React.FC<HeaderProps> = ({
         </View>
 
         {title && (
-          <View>
-            <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
-              {title}
-            </MyText>
-          </View>
+          <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
+            {title}
+          </MyText>
+        )}
+      </View>
+      <View style={styles.rightContainer}>
+        {isNotification && (
+          <TouchableOpacity
+            onPress={() => {
+              if (onNotificationPress) {
+                onNotificationPress();
+              } else {
+                navigation?.navigate?.('Notification' as never);
+              }
+            }}
+          >
+            <NotificationSvg
+              color={
+                activeScreen == 'Notification' ? theme.colors.primary : '#fff'
+              }
+            />
+          </TouchableOpacity>
+        )}
+        <Space mR={hp(1)} />
+        {isProfile && (
+          <TouchableOpacity onPress={onProfilePress}>
+            {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
+          </TouchableOpacity>
         )}
         <View style={styles.rightContainer}>
           {isNotification && (

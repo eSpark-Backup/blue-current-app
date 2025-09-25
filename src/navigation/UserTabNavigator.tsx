@@ -2,14 +2,14 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/user/HomeScreen';
 import FirmwareScreen from '../screens/user/FirmwareScreen';
-import ScanScreen from '../screens/user/ScanScreen';
-import ExploreScreen from '../screens/user/ExploreScreen';
 import SettingsScreen from '../screens/user/SettingsScreen';
 import UserBottomTabBar from '../components/UserBottomTabBar';
 import Header from '../components/Header';
 import NotificationScreen from '../screens/user/NotificationScreen';
 import ProfileScreen from '../screens/user/ProfileScreen';
 import AppSettingsScreen from '../screens/user/AppSettings';
+import DeviceOverviewScreen from '../screens/user/DeviceOverviewScreen';
+import UpdatesScreen from '../screens/user/UpdatesScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,14 +58,32 @@ export default function UserTabNavigator() {
           ),
         })}
       />
-      <Tab.Screen name="Scan" component={ScanScreen} />
       <Tab.Screen
-        name="Explore"
-        component={ExploreScreen}
+        name="DeviceOverview"
+        component={DeviceOverviewScreen}
         options={({ navigation }) => ({
           headerShown: true,
           header: () => (
             <Header
+              title={'Device Overview'}
+              isBack
+              isNotification
+              isProfile
+              onNotificationPress={() => navigation.navigate('Notification')}
+              onProfilePress={() => navigation.navigate('Profile')}
+              onBackPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="Updates"
+        component={UpdatesScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          header: () => (
+            <Header
+              title={'Subscription & Updates'}
               isBack
               isNotification
               isProfile
