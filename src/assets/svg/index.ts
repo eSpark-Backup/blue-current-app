@@ -26,7 +26,9 @@ import HistoryStats from './HistoryStats.svg';
 import UploadSvg from './uploadSvg.svg';
 import Phone from './Phone.svg';
 import ProfileHead from './ProfileHead.svg';
+import ActiveProfileHead from './ActiveProfileHead.svg';
 import Mail from './Mail.svg';
+import CameraOutline from './CameraOutline.svg';
 
 export {
   Home,
@@ -57,5 +59,7 @@ export {
   UploadSvg,
   Phone,
   ProfileHead,
+  ActiveProfileHead,
   Mail,
+  CameraOutline,
 };
