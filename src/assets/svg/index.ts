@@ -24,8 +24,9 @@ import CalculatorStats from './CalculatorStats.svg';
 import SettingStats from './SettingStats.svg';
 import HistoryStats from './HistoryStats.svg';
 import UploadSvg from './uploadSvg.svg';
-
-
+import Phone from './Phone.svg';
+import ProfileHead from './profileHead.svg';
+import Mail from './mail.svg';
 
 export {
   Home,
@@ -53,5 +54,8 @@ export {
   CalculatorStats,
   SettingStats,
   HistoryStats,
-  UploadSvg
+  UploadSvg,
+  Phone,
+  ProfileHead,
+  Mail,
 };
