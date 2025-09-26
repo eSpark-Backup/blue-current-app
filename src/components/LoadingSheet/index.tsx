@@ -14,7 +14,8 @@ import Space from '../Space';
 import { hp } from '../../utils';
 import MyText from '../MyText';
 import { useTheme } from '@react-navigation/native';
-import Icon  from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MyButton from '../MyButton';
 
 interface LoadingSheetProps {
   visible: boolean;
@@ -29,6 +30,8 @@ interface LoadingSheetProps {
   isHeader?: boolean; // if true, shows a header with a close button
   setVisible?: (visible: boolean) => void; // function to control visibility from parent
   headerTitle?: string; // title text for header
+  onButtonPress?: () => void; // function to handle button press
+  showButton?: boolean; // whether to show the button
 }
 
 const { height: screenHeight } = Dimensions.get('window');
@@ -45,7 +48,9 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
   title = null,
   isHeader = false,
   setVisible = () => {},
-  headerTitle = null
+  headerTitle = null,
+  onButtonPress = () => {},
+  showButton = false,
 }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const [progressNum, setProgressNum] = useState(0);
@@ -89,7 +94,10 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
               <MyText fontFamily="Outfit-Bold" fontSize={hp(2)}>
                 {headerTitle ?? 'Please Wait...'}
               </MyText>
-              <Pressable onPress={() => setVisible(false)} style={{ position: 'absolute', right: 20 }}>
+              <Pressable
+                onPress={() => setVisible(false)}
+                style={{ position: 'absolute', right: 20 }}
+              >
                 <Icon name="close" size={24} color="white" />
               </Pressable>
             </View>
@@ -128,6 +136,13 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
                 {title}
               </MyText>
             )}
+            {showButton && (
+              <MyButton
+                title="Request Engineer"
+                onPress={onButtonPress}
+                containerStyle={styles.button}
+              />
+            )}
           </View>
         </View>
       </View>
@@ -137,40 +152,49 @@ const LoadingSheet: React.FC<LoadingSheetProps> = ({
 
 const useStyles = () => {
   const colors = useTheme().colors;
-  return  StyleSheet.create({
-  overlay: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-  },
-  sheet: {
-    backgroundColor: '#0d1117',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: 'center',
-    paddingVertical: 40,
-  },
-  percentText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  label: {
-    fontWeight: '600',
-    color: 'white',
-    marginTop: 4,
-  },
-  header: {
-    position: 'absolute',
-    top: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#0C222A',
-    width: '100%',
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
-}
+  return StyleSheet.create({
+    overlay: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      backgroundColor: 'rgba(0,0,0,0.6)',
+    },
+    sheet: {
+      backgroundColor: '#0d1117',
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      alignItems: 'center',
+      paddingVertical: 40,
+    },
+    percentText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: 'white',
+    },
+    label: {
+      fontWeight: '600',
+      color: 'white',
+      marginTop: 4,
+    },
+    header: {
+      position: 'absolute',
+      top: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#0C222A',
+      width: '100%',
+      padding: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    button: {
+      backgroundColor: '#00C9FF',
+      borderRadius: 8,
+      paddingVertical: hp(0.5),
+      paddingHorizontal: hp(2),
+      // width: '40%',
+      alignSelf: 'center',
+      marginVertical: hp(3.4),
+    },
+  });
+};
 
 export default LoadingSheet;

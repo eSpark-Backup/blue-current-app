@@ -1,10 +1,72 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import CustomTabBar from '../../components/CustomTabBar';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
+import { EngineerStackParamList } from '../../navigation';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { hp, wp } from '../../utils';
+import HealthMetricCard from '../../components/HealthMetricCard';
+import { WarningIcon } from '../../assets/images';
+import Space from '../../components/Space';
+import MyText from '../../components/MyText';
 
-export default function FirmwareScreen() {
+const FirmwareScreen = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const [activeTab, setActiveTab] = useState('info');
+
+  const tabs = [
+    { id: 'info', label: 'Info' },
+    { id: 'warning', label: 'Warning' },
+    { id: 'error', label: 'Error' },
+  ];
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    console.log('Active tab changed to:', tabId);
+  };
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>User Firmware Screen</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Space mB={hp(2.5)} />
+      <MyText fontFamily="Outfit-Bold" fontSize={hp(2.8)}>
+        Log Sets
+      </MyText>
+      <Space mB={hp(2.5)} />
+      <View>
+        <CustomTabBar
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+          style={styles.tabBarContainer}
+        />
+        <Space mB={hp(5)} />
+        <HealthMetricCard
+          icon={WarningIcon}
+          title="Info"
+          date="20-08-2025"
+          update="Update 10weeks ago"
+        />
+        <Space mB={hp(1.5)} />
+        <HealthMetricCard
+          icon={WarningIcon}
+          title="Info"
+          date="20-08-2025"
+          update="Update 10weeks ago"
+        />
+      </View>
+    </ScrollView>
   );
-}
+};
+
+export default FirmwareScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: wp(6),
+  },
+  tabBarContainer: {
+    // marginBottom: 32,
+  },
+});
