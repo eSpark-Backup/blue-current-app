@@ -66,6 +66,8 @@ export default function ExploreScreen() {
               navigation.navigate('ServiceSetting');
             }else if (e === 3) {
               navigation.navigate('ServiceSetting');
+            }else if (e === 4) {
+              navigation.navigate('CalculatorsScreen');
             }
           }}
           numColumns={3}
