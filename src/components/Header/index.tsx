@@ -64,31 +64,6 @@ const Header: React.FC<HeaderProps> = ({
             {title}
           </MyText>
         )}
-      </View>
-      <View style={styles.rightContainer}>
-        {isNotification && (
-          <TouchableOpacity
-            onPress={() => {
-              if (onNotificationPress) {
-                onNotificationPress();
-              } else {
-                navigation?.navigate?.('Notification' as never);
-              }
-            }}
-          >
-            <NotificationSvg
-              color={
-                activeScreen == 'Notification' ? theme.colors.primary : '#fff'
-              }
-            />
-          </TouchableOpacity>
-        )}
-        <Space mR={hp(1)} />
-        {isProfile && (
-          <TouchableOpacity onPress={onProfilePress}>
-            {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
-          </TouchableOpacity>
-        )}
         <View style={styles.rightContainer}>
           {isNotification && (
             <TouchableOpacity
@@ -110,11 +85,7 @@ const Header: React.FC<HeaderProps> = ({
           <Space mR={hp(1)} />
           {isProfile && (
             <TouchableOpacity onPress={onProfilePress}>
-              <ProfileSvg
-                color={
-                  activeScreen == 'Profile' ? theme.colors.primary : '#fff'
-                }
-              />
+              {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
             </TouchableOpacity>
           )}
         </View>

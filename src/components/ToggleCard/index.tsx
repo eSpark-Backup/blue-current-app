@@ -9,9 +9,10 @@ import { hp, wp } from '../../utils';
 
 interface ToggleCardProps {
   title?: string;
+  trackOnColor?: string;
 }
 
-const ToggleCard: React.FC<ToggleCardProps> = ({ title = 'Olly Smith' }) => {
+const ToggleCard: React.FC<ToggleCardProps> = ({ title = 'Olly Smith', trackOnColor = undefined }) => {
   const [toggleValue, setToggleValue] = useState(false);
   const { colors } = useTheme();
 
@@ -22,6 +23,7 @@ const ToggleCard: React.FC<ToggleCardProps> = ({ title = 'Olly Smith' }) => {
       </MyText>
       <View style={styles.rightContainer}>
         <CustomToggle
+          trackColorOn={trackOnColor}
           size="small"
           value={toggleValue}
           onChange={setToggleValue}

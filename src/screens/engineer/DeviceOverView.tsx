@@ -71,13 +71,14 @@ export default function DeviceOverview() {
     // In a real React Native app, you would use navigation here
     // Example: navigation.navigate(item.screenName, { measurementId: item.id });
 
-    Alert.alert(
-      'Navigation',
-      `Navigate to ${item.screenName} for ${item.label}`,
-      [{ text: 'OK' }],
-    );
+    // Alert.alert(
+    //   'Navigation',
+    //   `Navigate to ${item.screenName} for ${item.label}`,
+    //   [{ text: 'OK' }],
+    // );
 
-    console.log(`[v0] Navigating to ${item.screenName} for ${item.label}`);
+    // console.log(`[v0] Navigating to ${item.screenName} for ${item.label}`);
+    navigation.navigate('DeviceSettingController', { title: item.label });
   };
 
   return (

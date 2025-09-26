@@ -17,7 +17,13 @@ export type EngineerStackParamList = {
   ServiceSetting: undefined;
   WorkSheet: undefined;
   DeviceOverview: undefined;
+  CalculatorsScreen: undefined;
+  FlowRateCalculator: undefined;
+  DeviceSettingController: { title?: string };
+  ResinUsageCalculator: undefined;
+  WasteUsageCalculator: undefined;
 };
+
 export type UserStackParamList = {
   Notification: undefined;
   Profile: undefined;
