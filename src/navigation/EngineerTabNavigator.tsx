@@ -19,6 +19,11 @@ import LogSets from '../screens/engineer/LogSets';
 import ServiceSetting from '../screens/engineer/ServiceSetting';
 import WorkSheet from '../screens/engineer/Worksheet';
 import DeviceOverview from '../screens/engineer/DeviceOverView';
+import DeviceSettingController from '../screens/engineer/DeviceSettingController';
+import CalculatorsScreen from '../screens/engineer/CalculatorsScreen';
+import FlowRateCalculator from '../screens/engineer/FlowRateCalculator';
+import ResinUsageCalculator from '../screens/engineer/ResinUsageCalculator';
+import WasteUsageCalculator from '../screens/engineer/WasteUsageCalculator';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -107,6 +112,41 @@ export default function EngineerTabNavigator() {
         <Tab.Screen
           name="DeviceOverview"
           component={DeviceOverview}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="DeviceSettingController"
+          component={DeviceSettingController}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="CalculatorsScreen"
+          component={CalculatorsScreen}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="FlowRateCalculator"
+          component={FlowRateCalculator}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="ResinUsageCalculator"
+          component={ResinUsageCalculator}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="WasteUsageCalculator"
+          component={WasteUsageCalculator}
           options={{
             tabBarButton: () => null,
           }}
