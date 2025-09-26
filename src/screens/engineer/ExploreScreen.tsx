@@ -46,7 +46,7 @@ export default function ExploreScreen() {
         </View>
         <GradientButton
           title="Device Overview"
-          onPress={() => navigation.navigate('Explore')}
+          onPress={() => navigation.navigate('DeviceOverview')}
           buttonStyle={styles.deviceOverviewButton}
         />
       </View>

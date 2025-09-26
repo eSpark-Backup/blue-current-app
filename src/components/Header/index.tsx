@@ -9,7 +9,10 @@ import {
 } from '../../assets/svg';
 import Space from '../Space';
 import { hp, wp } from '../../utils';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { Theme, useNavigation, useTheme } from '@react-navigation/native';
 import MyText from '../MyText';
 
@@ -38,16 +41,16 @@ const Header: React.FC<HeaderProps> = ({
   const theme: Theme = useTheme();
   const navigation = useNavigation();
   return (
-    <View
-      style={[
-        styles.header,
-        {
-          // paddingTop: insets.top,
-          borderBottomColor: theme.colors.primary,
-        },
-      ]}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <SafeAreaView>
+      <View
+        style={[
+          styles.header,
+          {
+            // paddingTop: insets.top,
+            borderBottomColor: theme.colors.primary,
+          },
+        ]}
+      >
         <View>
           {isBack && (
             <TouchableOpacity onPress={onBackPress}>
@@ -61,33 +64,33 @@ const Header: React.FC<HeaderProps> = ({
             {title}
           </MyText>
         )}
+        <View style={styles.rightContainer}>
+          {isNotification && (
+            <TouchableOpacity
+              onPress={() => {
+                if (onNotificationPress) {
+                  onNotificationPress();
+                } else {
+                  navigation?.navigate?.('Notification' as never);
+                }
+              }}
+            >
+              <NotificationSvg
+                color={
+                  activeScreen == 'Notification' ? theme.colors.primary : '#fff'
+                }
+              />
+            </TouchableOpacity>
+          )}
+          <Space mR={hp(1)} />
+          {isProfile && (
+            <TouchableOpacity onPress={onProfilePress}>
+              {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
-      <View style={styles.rightContainer}>
-        {isNotification && (
-          <TouchableOpacity
-            onPress={() => {
-              if (onNotificationPress) {
-                onNotificationPress();
-              } else {
-                navigation?.navigate?.('Notification' as never);
-              }
-            }}
-          >
-            <NotificationSvg
-              color={
-                activeScreen == 'Notification' ? theme.colors.primary : '#fff'
-              }
-            />
-          </TouchableOpacity>
-        )}
-        <Space mR={hp(1)} />
-        {isProfile && (
-          <TouchableOpacity onPress={onProfilePress}>
-            {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

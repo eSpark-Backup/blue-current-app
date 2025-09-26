@@ -16,6 +16,7 @@ export type EngineerStackParamList = {
   LogSets: undefined;
   ServiceSetting: undefined;
   WorkSheet: undefined;
+  DeviceOverview: undefined;
 };
 export type UserStackParamList = {
   Notification: undefined;
