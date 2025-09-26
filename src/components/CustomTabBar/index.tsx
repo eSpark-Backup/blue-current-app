@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { hp, wp } from '../../utils';
 import LinearGradient from 'react-native-linear-gradient';
+import MyText from '../MyText';
 
 interface Tab {
   id: string;
@@ -105,11 +106,11 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
                     end={{ x: 0, y: 1 }}
                     style={styles.activeTabBackground}
                   >
-                    <Text style={styles.activeTabText}>{tab.label}</Text>
+                    <MyText style={styles.activeTabText}>{tab.label}</MyText>
                   </LinearGradient>
                 ) : (
                   <View style={styles.inactiveTabBackground}>
-                    <Text style={styles.inactiveTabText}>{tab.label}</Text>
+                    <MyText style={styles.inactiveTabText}>{tab.label}</MyText>
                   </View>
                 )}
               </Animated.View>
@@ -158,12 +159,12 @@ const styles = StyleSheet.create({
   },
   activeTabText: {
     color: '#FFFFFF',
-    fontSize: wp(3.5),
+    fontSize: wp(3.3),
     fontWeight: '600',
   },
   inactiveTabText: {
     color: '#8E8E93',
-    fontSize: wp(3.5),
+    fontSize: wp(3.3),
     fontWeight: '600',
   },
 });
