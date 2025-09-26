@@ -51,19 +51,19 @@ const Header: React.FC<HeaderProps> = ({
           },
         ]}
       >
-        <View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {isBack && (
             <TouchableOpacity onPress={onBackPress}>
               <LeftArrow />
             </TouchableOpacity>
           )}
+          {title && (
+            <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
+              {title}
+            </MyText>
+          )}
         </View>
 
-        {title && (
-          <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
-            {title}
-          </MyText>
-        )}
         <View style={styles.rightContainer}>
           {isNotification && (
             <TouchableOpacity
@@ -85,7 +85,11 @@ const Header: React.FC<HeaderProps> = ({
           <Space mR={hp(1)} />
           {isProfile && (
             <TouchableOpacity onPress={onProfilePress}>
-              {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
+              {activeScreen == 'Profile' ? (
+                <ActiveProfileHead />
+              ) : (
+                <ProfileSvg />
+              )}
             </TouchableOpacity>
           )}
         </View>
