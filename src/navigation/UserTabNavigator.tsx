@@ -32,7 +32,6 @@ export default function UserTabNavigator() {
           headerShown: true,
           header: () => (
             <Header
-              isBack
               isNotification
               isProfile
               onNotificationPress={() => navigation.navigate('Notification')}
@@ -48,6 +47,7 @@ export default function UserTabNavigator() {
           headerShown: true,
           header: () => (
             <Header
+              title={'Logsets'}
               isBack
               isNotification
               isProfile
