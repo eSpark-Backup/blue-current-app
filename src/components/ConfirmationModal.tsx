@@ -12,6 +12,7 @@ interface ConfirmationModalProps {
   setIsVisible: (visible: boolean) => void;
   onContinue?: () => void;
   backdropColor?: string;
+  customButtons?: React.ReactNode;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -21,7 +22,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   isVisible,
   setIsVisible,
   onContinue = () => {},
-  backdropColor = undefined
+  backdropColor = undefined,
+  customButtons = undefined,
 }) => {
   const styles = useStyles();
   return (
@@ -41,15 +43,22 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           <MyText fontFamily="Outfit-Regular" style={styles.description}>
             {description}
           </MyText>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.closeButton}
-            onPress={() => onContinue?.()}
-          >
-            <MyText fontFamily="Outfit-Regular" style={styles.closeButtonText}>
-              Continue
-            </MyText>
-          </TouchableOpacity>
+          {customButtons ? (
+            customButtons
+          ) : (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.closeButton}
+              onPress={() => onContinue?.()}
+            >
+              <MyText
+                fontFamily="Outfit-Regular"
+                style={styles.closeButtonText}
+              >
+                Continue
+              </MyText>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </Modal>
