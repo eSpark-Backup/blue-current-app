@@ -5,17 +5,19 @@ import { Theme, useTheme } from '@react-navigation/native';
 
 import { hp, wp } from '../utils';
 import {
-  ActiveExplore,
+  ActiveUpdates,
   ActiveFirmware,
   ActiveHome,
   ActiveSettings,
-  Explore,
+  Updates,
   Firmware,
   Home,
   Scan,
   Settings,
+  DeviceOverview,
+  ActiveDeviceOverview,
 } from '../assets/svg';
-import { ActiveScan } from '../assets/images';
+import { ActiveScan, DeviceOverviewMinted } from '../assets/images';
 
 const PRIMARY_COLOR = '#00C9FF';
 
@@ -48,34 +50,35 @@ export default function UserBottomTabBar({
         ),
     },
     {
-      name: 'Scan',
+      name: 'DeviceOverview',
       type: 'svg',
       icon: (isFocused: boolean) => (
         <>
           {isFocused ? (
-            <Image
-              source={ActiveScan}
-              style={{
-                width: hp(15),
-                height: hp(19),
-                top: hp(4),
-              }}
+            <ActiveDeviceOverview
+              width={hp(10)}
+              height={hp(10)}
+              style={{ position: 'absolute', top: -hp(11.3), left: -hp(5) }}
             />
           ) : (
-            <Scan width={hp(10)} height={hp(10)} />
+            <DeviceOverview
+              width={hp(10)}
+              height={hp(10)}
+              style={{ position: 'absolute', top: -hp(11.3), left: -hp(5) }}
+            />
           )}
         </>
       ),
     },
     {
-      name: 'Explore',
+      name: 'Updates',
       type: 'svg',
       icon: (isFocused: boolean) => (
         <>
           {isFocused ? (
-            <ActiveExplore width={hp(5)} height={hp(5)} />
+            <ActiveUpdates width={hp(5)} height={hp(5)} />
           ) : (
-            <Explore width={hp(5)} height={hp(5)} />
+            <Updates width={hp(5)} height={hp(5)} />
           )}
         </>
       ),

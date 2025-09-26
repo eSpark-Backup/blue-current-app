@@ -1,6 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
-import { LeftArrow, NotificationSvg, ProfileSvg } from '../../assets/svg';
+import {
+  ActiveProfileHead,
+  LeftArrow,
+  NotificationSvg,
+  ProfileHead,
+  ProfileSvg,
+} from '../../assets/svg';
 import Space from '../Space';
 import { hp, wp } from '../../utils';
 import {
@@ -54,11 +60,9 @@ const Header: React.FC<HeaderProps> = ({
         </View>
 
         {title && (
-          <View>
-            <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
-              {title}
-            </MyText>
-          </View>
+          <MyText fontFamily="Gilroy-SemiBold" fontSize={hp(2.1)}>
+            {title}
+          </MyText>
         )}
         <View style={styles.rightContainer}>
           {isNotification && (
@@ -81,11 +85,7 @@ const Header: React.FC<HeaderProps> = ({
           <Space mR={hp(1)} />
           {isProfile && (
             <TouchableOpacity onPress={onProfilePress}>
-              <ProfileSvg
-                color={
-                  activeScreen == 'Profile' ? theme.colors.primary : '#fff'
-                }
-              />
+              {activeScreen == 'Profile' ? <ActiveProfileHead /> : <ProfileSvg />}
             </TouchableOpacity>
           )}
         </View>
