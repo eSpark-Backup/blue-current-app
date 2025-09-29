@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import CustomTabBar from '../../components/CustomTabBar';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import Header from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
-import { EngineerStackParamList } from '../../navigation';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { EngineerStackParamList, UserStackParamList } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { hp, wp } from '../../utils';
 import HealthMetricCard from '../../components/HealthMetricCard';
@@ -11,10 +11,20 @@ import { WarningIcon } from '../../assets/images';
 import Space from '../../components/Space';
 import MyText from '../../components/MyText';
 
+type FirmwareRouteProp = RouteProp<UserStackParamList, 'Firmware'>;
+
 const FirmwareScreen = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<UserStackParamList>>();
   const [activeTab, setActiveTab] = useState('info');
+  const route = useRoute<FirmwareRouteProp>();
+
+  const fromRequestEngineer = route.params?.fromRequestEngineer;
+
+  const handleSelectLog = (logId: string) => {
+    if (fromRequestEngineer) {
+      navigation.navigate('RequestEngineer', { selectedLog: logId }); // ✅ send back
+    }
+  };
 
   const tabs = [
     { id: 'info', label: 'Info' },
@@ -46,12 +56,14 @@ const FirmwareScreen = () => {
           title="Info"
           date="20-08-2025"
           update="Update 10weeks ago"
+          onPress={() => handleSelectLog('log1')}
         />
         <Space mB={hp(1.5)} />
         <HealthMetricCard
           icon={WarningIcon}
           title="Info"
           date="20-08-2025"
+          onPress={() => handleSelectLog('log2')}
           update="Update 10weeks ago"
         />
       </View>

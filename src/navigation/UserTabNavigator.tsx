@@ -10,6 +10,8 @@ import ProfileScreen from '../screens/user/ProfileScreen';
 import AppSettingsScreen from '../screens/user/AppSettings';
 import DeviceOverviewScreen from '../screens/user/DeviceOverviewScreen';
 import UpdatesScreen from '../screens/user/UpdatesScreen';
+import RequestEngineerScreen from '../screens/user/RequestEngineer';
+import DeviceSettingController from '../screens/user/DeviceSettingController';
 
 const Tab = createBottomTabNavigator();
 
@@ -165,6 +167,31 @@ export default function UserTabNavigator() {
             />
           ),
         })}
+      />
+      <Tab.Screen
+        name="RequestEngineer"
+        component={RequestEngineerScreen}
+        options={({ navigation }) => ({
+          tabBarButton: () => null,
+          headerShown: true,
+          header: () => (
+            <Header
+              isBack
+              isNotification
+              isProfile
+              onNotificationPress={() => navigation.navigate('Notification')}
+              onProfilePress={() => navigation.navigate('Profile')}
+              onBackPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="DeviceSettingController"
+        component={DeviceSettingController}
+        options={{
+          tabBarButton: () => null,
+        }}
       />
     </Tab.Navigator>
   );
