@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Pressable } from 'react-native';
 import MyText from './MyText';
 import Space from './Space';
 import { hp, wp } from '../utils';
@@ -9,16 +9,20 @@ export type HealthMetricCardProps = {
   title: string;
   date: string;
   update: string;
+  onPress?: () => void;
 };
 
-export default function HealthMetricCard({ icon, title, date, update }: HealthMetricCardProps) {
+export default function HealthMetricCard({
+  icon,
+  title,
+  date,
+  update,
+  onPress,
+}: HealthMetricCardProps) {
   return (
-    <View style={styles.metricCard}>
+    <Pressable style={styles.metricCard} onPress={onPress}>
       <View style={styles.metricCardLeft}>
-        <Image
-          source={icon}
-          style={styles.metricCardImage}
-        />
+        <Image source={icon} style={styles.metricCardImage} />
         <View>
           <MyText fontFamily="Outfit-SemiBold" fontSize={16}>
             {title}
@@ -34,7 +38,7 @@ export default function HealthMetricCard({ icon, title, date, update }: HealthMe
           {update}
         </MyText>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
