@@ -12,12 +12,10 @@ import {
   Updates,
   Firmware,
   Home,
-  Scan,
   Settings,
   DeviceOverview,
   ActiveDeviceOverview,
 } from '../assets/svg';
-import { ActiveScan, DeviceOverviewMinted } from '../assets/images';
 
 const PRIMARY_COLOR = '#00C9FF';
 
@@ -123,14 +121,6 @@ export default function UserBottomTabBar({
               style={isScan ? styles.scanTab : styles.tab}
               activeOpacity={0.7}
             >
-              {/* {tab.type === 'vector' ? (
-                <Icon
-                  name={tab.icon}
-                  size={isScan ? hp(4) : hp(3)}
-                  color={isFocused ? theme.colors.primary : '#888'}
-                  style={isScan ? styles.scanIcon : undefined}
-                />
-              ) : ( */}
               <View
                 style={
                   isScan ? { position: 'absolute', bottom: -hp(1) } : undefined
@@ -159,11 +149,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     width: wp(101),
     right: wp(0.4),
-    // height: hp(7),
     paddingVertical: hp(0.5),
-    // marginHorizontal: wp(2),
-    // marginBottom: hp(1),
-    // paddingHorizontal: wp(1),
   },
   tab: {
     flex: 1,

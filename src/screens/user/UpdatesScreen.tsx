@@ -1,11 +1,16 @@
 import React, { memo, useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import MyText from '../../components/MyText';
 import Space from '../../components/Space';
 import SettingsCard from '../../components/SettingsCard';
 import MyButton from '../../components/MyButton';
 import SubscriptionList from '../../components/SubscriptionList';
+import PaymentSheet from '../../components/PaymentSheet';
+import ConfirmationModal from '../../components/ConfirmationModal';
+import LoadingSheet from '../../components/LoadingSheet';
 
 import {
   DeviceLogo,
@@ -14,12 +19,7 @@ import {
   VersionLogo,
 } from '../../assets/svg';
 import { hp, wp } from '../../utils';
-import PaymentSheet from '../../components/PaymentSheet';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { UserStackParamList } from '../../navigation';
-import ConfirmationModal from '../../components/ConfirmationModal';
-import LoadingSheet from '../../components/LoadingSheet';
 
 const CURRENT_VERSION = 'v1.2.3';
 const INSTALLED_DATE = '20-08-2025';
