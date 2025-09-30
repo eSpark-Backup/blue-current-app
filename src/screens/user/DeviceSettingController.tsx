@@ -35,7 +35,7 @@ export default function DeviceSettingController() {
           {params?.title ?? 'Turbidity'}
         </MyText>
         <MyText fontFamily="Gilroy-Regular" fontSize={hp(1.4)} color="#5E6272">
-          Control Remotely
+          Resolve the issuesby:
         </MyText>
         <Space mB={hp(3.5)} />
 

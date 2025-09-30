@@ -38,6 +38,7 @@ import InstallLogo from './InstallLogo.svg';
 import VersionLogo from './VersionLogo.svg';
 import VisaLogo from './Visa.svg';
 import PlusSign from './Plus.svg';
+import Card from './Card.svg';
 
 export {
   Home,
@@ -80,4 +81,5 @@ export {
   VersionLogo,
   VisaLogo,
   PlusSign,
+  Card,
 };

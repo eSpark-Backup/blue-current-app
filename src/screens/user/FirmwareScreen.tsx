@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import CustomTabBar from '../../components/CustomTabBar';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import Header from '../../components/Header';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { EngineerStackParamList, UserStackParamList } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { hp, wp } from '../../utils';
-import HealthMetricCard from '../../components/HealthMetricCard';
-import { WarningIcon } from '../../assets/images';
+
 import Space from '../../components/Space';
 import MyText from '../../components/MyText';
+import HealthMetricCard from '../../components/HealthMetricCard';
+
+import { UserStackParamList } from '../../navigation';
+import { hp, wp } from '../../utils';
+import { WarningIcon } from '../../assets/images';
 
 type FirmwareRouteProp = RouteProp<UserStackParamList, 'Firmware'>;
 
