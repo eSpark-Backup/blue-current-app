@@ -22,6 +22,9 @@ export type EngineerStackParamList = {
   DeviceSettingController: { title?: string };
   ResinUsageCalculator: undefined;
   WasteUsageCalculator: undefined;
+  EngineerSettingsScreen: undefined;
+  EngineerProfile: undefined;
+  EngineerAppSettings: undefined;
 };
 
 export type UserStackParamList = {

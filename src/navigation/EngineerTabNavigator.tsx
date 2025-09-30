@@ -24,6 +24,8 @@ import CalculatorsScreen from '../screens/engineer/CalculatorsScreen';
 import FlowRateCalculator from '../screens/engineer/FlowRateCalculator';
 import ResinUsageCalculator from '../screens/engineer/ResinUsageCalculator';
 import WasteUsageCalculator from '../screens/engineer/WasteUsageCalculator';
+import EngineerAppSettings from '../screens/engineer/AppSetting';
+import EngineerProfile from '../screens/engineer/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -147,6 +149,20 @@ export default function EngineerTabNavigator() {
         <Tab.Screen
           name="WasteUsageCalculator"
           component={WasteUsageCalculator}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="EngineerAppSettings"
+          component={EngineerAppSettings}
+          options={{
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="EngineerProfile"
+          component={EngineerProfile}
           options={{
             tabBarButton: () => null,
           }}
