@@ -9,6 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyText from '../MyText';
 import { Theme, useTheme } from '@react-navigation/native';
+import { hp } from '../../utils';
 
 export type MyInputVariant = 'underline' | 'rounded';
 
@@ -21,6 +22,8 @@ interface MyInputProps {
   secureTextEntry?: boolean;
   style?: any;
   uColor?: string;
+  bgColor?: string;
+  labelColor?: string;
 }
 
 export default function MyInput({
@@ -32,6 +35,8 @@ export default function MyInput({
   secureTextEntry,
   style,
   uColor,
+  bgColor,
+  labelColor,
 }: MyInputProps) {
   const theme: Theme = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -40,7 +45,7 @@ export default function MyInput({
     <View style={[styles.container, style]}>
       <MyText
         fontSize={14}
-        color="#3A3D46"
+        color={labelColor || '#3A3D46'}
         fontFamily="Outfit-Bold"
         style={{ marginBottom: 4 }}
       >
@@ -49,7 +54,13 @@ export default function MyInput({
       <View
         style={
           variant === 'rounded'
-            ? [styles.roundedWrapper, { borderColor: theme.colors.primary }]
+            ? [
+                styles.roundedWrapper,
+                {
+                  borderColor: theme.colors.primary,
+                  backgroundColor: bgColor || '#222',
+                },
+              ]
             : styles.underlineWrapper
         }
       >
@@ -98,13 +109,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#00C9FF',
-    backgroundColor: '#222',
   },
   input: {
     flex: 1,
     color: '#fff',
-    fontSize: 16,
-    paddingVertical: 8,
+    fontSize: hp(1.8),
+    paddingVertical: hp(1.5),
+    fontFamily: 'Outfit-Regular',
   },
   clearIcon: {
     marginLeft: 8,

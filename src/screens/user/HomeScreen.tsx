@@ -9,14 +9,13 @@ import MyButton from '../../components/MyButton';
 import MeasurementGrid, {
   MeasurementData,
 } from '../../components/MeasurementGrid';
-import { EngineerStackParamList } from '../../navigation';
+import { EngineerStackParamList, UserStackParamList } from '../../navigation';
 import { hp, wp } from '../../utils';
 import GradientButton from '../../components/GradientButton';
 import LoadingSheet from '../../components/LoadingSheet';
 
 export default function HomeScreen() {
-  const navigation =
-    useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<UserStackParamList>>();
   const [showLoader, setShowLoader] = React.useState(false);
   const [showButton, setShowButton] = React.useState(false);
 
@@ -77,13 +76,7 @@ export default function HomeScreen() {
     // In a real React Native app, you would use navigation here
     // Example: navigation.navigate(item.screenName, { measurementId: item.id });
 
-    Alert.alert(
-      'Navigation',
-      `Navigate to ${item.screenName} for ${item.label}`,
-      [{ text: 'OK' }],
-    );
-
-    console.log(`[v0] Navigating to ${item.screenName} for ${item.label}`);
+    navigation.navigate('DeviceSettingController', { title: item.label });
   };
 
   return (
@@ -143,6 +136,10 @@ export default function HomeScreen() {
         headerTitle="Detected"
         setVisible={setShowLoader}
         isHeader={true}
+        onButtonPress={() => {
+          setShowLoader(false);
+          navigation.navigate('RequestEngineer', {});
+        }}
       />
     </View>
   );
