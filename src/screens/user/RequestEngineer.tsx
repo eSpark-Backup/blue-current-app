@@ -15,12 +15,13 @@ import MyText from '../../components/MyText';
 import MyInput from '../../components/MyInput';
 import GradientButton from '../../components/GradientButton';
 import MyButton from '../../components/MyButton';
-import { UploadSvg } from '../../assets/svg';
+import { ModalSuccessSvg, UploadSvg } from '../../assets/svg';
 import {
   ImageLibraryOptions,
   launchImageLibrary,
 } from 'react-native-image-picker';
 import MyInputRight from '../../components/MyInputRight/index.';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const imagePickerOptions: ImageLibraryOptions = {
   mediaType: 'photo',
@@ -34,6 +35,7 @@ type RequestEngineerRouteProp = RouteProp<
 const RequestEngineerScreen = () => {
   const navigation = useNavigation<StackNavigationProp<UserStackParamList>>();
   const theme: Theme = useTheme();
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [deviceImage, setDeviceImage] = useState<string>('');
   const [problem, setProblem] = useState('');
   const [hardwareProblem, setHardwareProblem] = useState('');
@@ -51,16 +53,12 @@ const RequestEngineerScreen = () => {
   };
 
   const handleSubmit = () => {
-    if (
-      !handleAttachLog
-      //   !hardwareProblem ||
-      //   !softwareProblem ||
-      //   !description
-    ) {
+    if (!selectedLog) {
       Alert.alert('Please attach a log');
       return;
     }
-    navigation.navigate('Home');
+    setIsModalVisible(true);
+    // navigation.navigate('Home');
     // Implement submit logic here
   };
   const handleAttachLog = () => {
@@ -68,100 +66,113 @@ const RequestEngineerScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-      <Space mB={hp(2.5)} />
-      <View>
-        <MyText fontFamily="Outfit-SemiBold" fontSize={36}>
-          Request For Engineer
-        </MyText>
-        <MyText fontFamily="Outfit-SemiBold" fontSize={14} color="#5E6272">
-          Input your queries
-        </MyText>
-      </View>
-      <Space mB={hp(2.5)} />
-      <MyInput
-        label="Problem"
-        variant="rounded"
-        bgColor="transparent"
-        value={problem}
-        onChangeText={setProblem}
-        placeholder="Input your problem here"
-        labelColor="white"
-      />
-      <MyInput
-        label="Hardware Problem"
-        variant="rounded"
-        bgColor="transparent"
-        value={hardwareProblem}
-        onChangeText={setHardwareProblem}
-        placeholder="Input your problem here"
-        labelColor="white"
-      />
-      <MyInput
-        label="Software Problem"
-        variant="rounded"
-        bgColor="transparent"
-        value={softwareProblem}
-        onChangeText={setSoftwareProblem}
-        placeholder="Input your problem here"
-        labelColor="white"
-      />
-      <MyInput
-        label="Description"
-        variant="rounded"
-        bgColor="transparent"
-        value={description}
-        onChangeText={setDescription}
-        placeholder="Input your description here"
-        labelColor="white"
-      />
-      <MyInputRight
-        value={selectedLog || ''}
-        onChangeText={() => {}}
-        placeholder="Attach Log set for engineer"
-        variant="rounded"
-        RightComponent={
-          <GradientButton
-            title="Attached Log"
-            onPress={handleAttachLog}
-            colors={['#630904', '#B50202']}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            buttonStyle={styles.deviceOverviewButton}
-            height={hp(3.5)}
-            width={wp(28)}
-            textStyle={{ fontSize: hp(1.6), fontFamily: 'Outfit-Medium' }}
-          />
-        }
-        // onRightPress={handleAttachLog}
-        labelColor="white"
-        bgColor="transparent"
-      />
-      <MyInputRight
-        label="Upload Image"
-        value={deviceImage}
-        onChangeText={() => {}}
-        placeholder="Upload Your Device Image"
-        variant="rounded"
-        RightComponent={<UploadSvg stroke="pink" />}
-        onRightPress={handleUpload}
-        labelColor="white"
-        bgColor="transparent"
-      />
-      <MyButton
-        onPress={handleSubmit}
-        title="Submit Request"
-        containerStyle={{
-          backgroundColor: theme.colors.primary,
-          alignSelf: 'center',
-          paddingHorizontal: wp(5),
-          borderRadius: wp(1.2),
-          paddingVertical: hp(0.6),
-          marginTop: hp(3),
-          marginBottom: hp(8),
+    <>
+      <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+        <Space mB={hp(2.5)} />
+        <View>
+          <MyText fontFamily="Outfit-SemiBold" fontSize={36}>
+            Request For Engineer
+          </MyText>
+          <MyText fontFamily="Outfit-SemiBold" fontSize={14} color="#5E6272">
+            Input your queries
+          </MyText>
+        </View>
+        <Space mB={hp(2.5)} />
+        <MyInput
+          label="Problem"
+          variant="rounded"
+          bgColor="transparent"
+          value={problem}
+          onChangeText={setProblem}
+          placeholder="Input your problem here"
+          labelColor="white"
+        />
+        <MyInput
+          label="Hardware Problem"
+          variant="rounded"
+          bgColor="transparent"
+          value={hardwareProblem}
+          onChangeText={setHardwareProblem}
+          placeholder="Input your problem here"
+          labelColor="white"
+        />
+        <MyInput
+          label="Software Problem"
+          variant="rounded"
+          bgColor="transparent"
+          value={softwareProblem}
+          onChangeText={setSoftwareProblem}
+          placeholder="Input your problem here"
+          labelColor="white"
+        />
+        <MyInput
+          label="Description"
+          variant="rounded"
+          bgColor="transparent"
+          value={description}
+          onChangeText={setDescription}
+          placeholder="Input your description here"
+          labelColor="white"
+        />
+        <MyInputRight
+          value={selectedLog || ''}
+          onChangeText={() => {}}
+          placeholder="Attach Log set for engineer"
+          variant="rounded"
+          RightComponent={
+            <GradientButton
+              title="Attached Log"
+              onPress={handleAttachLog}
+              colors={['#630904', '#B50202']}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              buttonStyle={styles.deviceOverviewButton}
+              height={hp(3.5)}
+              width={wp(28)}
+              textStyle={{ fontSize: hp(1.6), fontFamily: 'Outfit-Medium' }}
+            />
+          }
+          // onRightPress={handleAttachLog}
+          labelColor="white"
+          bgColor="transparent"
+        />
+        <MyInputRight
+          label="Upload Image"
+          value={deviceImage}
+          onChangeText={() => {}}
+          placeholder="Upload Your Device Image"
+          variant="rounded"
+          RightComponent={<UploadSvg stroke="pink" />}
+          onRightPress={handleUpload}
+          labelColor="white"
+          bgColor="transparent"
+        />
+        <MyButton
+          onPress={handleSubmit}
+          title="Submit Request"
+          containerStyle={{
+            backgroundColor: theme.colors.primary,
+            alignSelf: 'center',
+            paddingHorizontal: wp(5),
+            borderRadius: wp(1.2),
+            paddingVertical: hp(0.6),
+            marginTop: hp(3),
+            marginBottom: hp(8),
+          }}
+        />
+      </ScrollView>
+      <ConfirmationModal
+        icon={<ModalSuccessSvg />}
+        title="Request Submitted"
+        description="Your request has been submitted. You will be notified when the engineer responds."
+        isVisible={isModalVisible}
+        setIsVisible={setIsModalVisible}
+        onContinue={() => {
+          setIsModalVisible(false);
+          navigation?.goBack?.();
         }}
       />
-    </ScrollView>
+    </>
   );
 };
 
