@@ -14,7 +14,6 @@ const CardDetailsScreen = () => {
   const navigation = useNavigation<StackNavigationProp<UserStackParamList>>();
   const theme: Theme = useTheme();
 
-  const [problem, setProblem] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolderName, setCardHolderName] = useState('');
   const [expired, setExpired] = useState('');
@@ -110,6 +109,3 @@ const styles = StyleSheet.create({
     borderRadius: wp(1.2),
   },
 });
-function alert(arg0: string) {
-  throw new Error('Function not implemented.');
-}
