@@ -44,10 +44,10 @@ export default function MyInput({
   return (
     <View style={[styles.container, style]}>
       <MyText
-        fontSize={14}
+        fontSize={hp(1.9)}
         color={labelColor || '#3A3D46'}
-        fontFamily="Outfit-Bold"
-        style={{ marginBottom: 4 }}
+        fontFamily="Outfit-SemiBold"
+        style={{ marginBottom: hp(1) }}
       >
         {label}
       </MyText>

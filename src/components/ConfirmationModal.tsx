@@ -79,6 +79,7 @@ const useStyles = () => {
       borderRadius: wp(4),
       alignItems: 'center',
       width: wp(80),
+      padding: wp(4),
     },
     iconContainer: {
       marginBottom: hp(2),
