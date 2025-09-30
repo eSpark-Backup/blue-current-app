@@ -68,6 +68,8 @@ export default function ExploreScreen() {
               navigation.navigate('ServiceSetting');
             }else if (e === 4) {
               navigation.navigate('CalculatorsScreen');
+            }else if (e === 5) {
+              navigation.navigate('DeviceOverview');
             }
           }}
           numColumns={3}

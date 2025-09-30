@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
   isNotification = false,
   onNotificationPress = null,
   isProfile = false,
-  onProfilePress = () => {},
+  onProfilePress = null,
   activeScreen = null,
   title = null,
 }) => {
@@ -84,7 +84,13 @@ const Header: React.FC<HeaderProps> = ({
           )}
           <Space mR={hp(1)} />
           {isProfile && (
-            <TouchableOpacity onPress={onProfilePress}>
+            <TouchableOpacity onPress={() => { 
+              if(onProfilePress){
+                onProfilePress();
+              }else{
+                navigation?.navigate?.('EngineerProfile' as never);
+              }
+            }}>
               {activeScreen == 'Profile' ? (
                 <ActiveProfileHead />
               ) : (
