@@ -12,6 +12,7 @@ import DeviceOverviewScreen from '../screens/user/DeviceOverviewScreen';
 import UpdatesScreen from '../screens/user/UpdatesScreen';
 import RequestEngineerScreen from '../screens/user/RequestEngineer';
 import DeviceSettingController from '../screens/user/DeviceSettingController';
+import CardDetailsScreen from '../screens/user/CardDetails';
 
 const Tab = createBottomTabNavigator();
 
@@ -81,6 +82,24 @@ export default function UserTabNavigator() {
       <Tab.Screen
         name="Updates"
         component={UpdatesScreen}
+        options={({ navigation }) => ({
+          headerShown: true,
+          header: () => (
+            <Header
+              title={'Subscription & Updates'}
+              isBack
+              isNotification
+              isProfile
+              onNotificationPress={() => navigation.navigate('Notification')}
+              onProfilePress={() => navigation.navigate('Profile')}
+              onBackPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="CardDetails"
+        component={CardDetailsScreen}
         options={({ navigation }) => ({
           headerShown: true,
           header: () => (

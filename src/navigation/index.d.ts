@@ -30,7 +30,8 @@ export type UserStackParamList = {
   Home: undefined;
   Firmware: { fromRequestEngineer?: boolean }; // ✅ flag
   DeviceOverview: undefined;
-  Updates: undefined;
+  Updates: { isUpdating?: boolean }; // ✅ flag
+  CardDetails: { plan?: string }; // ✅ plan name
   Settings: undefined;
   AppSettings: undefined;
   RequestEngineer: { selectedLog?: string }; // ✅ return log
