@@ -1,24 +1,85 @@
-import React from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
-import MyText from '../../components/MyText';
-import Header from '../../components/Header';
-import { hp, wp } from '../../utils';
+import React, { useState } from 'react';
+import { View, FlatList, ScrollView, Pressable } from 'react-native';
 import { StyleSheet } from 'react-native';
-import Space from '../../components/Space';
-import {
-  HomeScheduleIconSvg,
-  HomeStartServiceIcon,
-  HomeSystemIcon,
-} from '../../assets/svg';
-import DeviceCard from '../../components/DeviceCard';
-import { connectedDevices, inProgressJobs } from '../../utils/constants';
-import HomeJobCard from '../../components/HomeJobCard';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
+import MyText from '../../components/MyText';
+import Header from '../../components/Header';
+import Space from '../../components/Space';
+import DeviceCard from '../../components/DeviceCard';
+import CustomizationSheet from '../../components/CustomizationSheet';
+import HomeJobCard from '../../components/HomeJobCard';
+
+import { hp, wp } from '../../utils';
+import {
+  HomeNearbyDevices,
+  HomeNearbyDevicesWhite,
+  HomeSchedService,
+  HomeSchedServiceWhite,
+  HomeScheduleIconSvg,
+  HomeScheduleServiceWhite,
+  HomeStartServiceIcon,
+  HomeStartServiceWhite,
+  HomeStartTask,
+  HomeStartTaskWhite,
+  HomeSystemIcon,
+  HomeSystemWhite,
+} from '../../assets/svg';
+
+import { connectedDevices, inProgressJobs } from '../../utils/constants';
 import { EngineerStackParamList } from '../../navigation';
 
 export default function HomeScreen() {
-  const navigation = useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const navigation =
+    useNavigation<StackNavigationProp<EngineerStackParamList>>();
+  const [customizationVisible, setCustomizationVisible] = useState(false);
+  const [selectedTiles, setSelectedTiles] = useState<string[]>([
+    'system',
+    'schedule',
+    'start',
+  ]);
+
+  const tiles = [
+    {
+      id: 'system',
+      title: 'Check my System',
+      icon: <HomeSystemIcon />,
+      sheetIcon: <HomeSystemWhite />,
+    },
+    {
+      id: 'schedule',
+      title: 'View my Schedule',
+      icon: <HomeScheduleIconSvg />,
+      sheetIcon: <HomeScheduleServiceWhite />,
+    },
+    {
+      id: 'start',
+      title: 'Start a Service',
+      icon: <HomeStartServiceIcon />,
+      sheetIcon: <HomeStartServiceWhite />,
+    },
+    {
+      id: 'devices',
+      title: 'Nearby Devices',
+      icon: <HomeNearbyDevices />,
+      sheetIcon: <HomeNearbyDevicesWhite />,
+    },
+    {
+      id: 'service',
+      title: 'Schedule Service',
+      icon: <HomeSchedService />,
+      sheetIcon: <HomeSchedServiceWhite />,
+    },
+    {
+      id: 'task',
+      title: 'Start New Task',
+      icon: <HomeStartTask />,
+      sheetIcon: <HomeStartTaskWhite />,
+    },
+  ];
+  const displayedTiles = tiles.filter(t => selectedTiles.includes(t.id));
+
   return (
     <View style={styles.container}>
       <Header
@@ -49,36 +110,22 @@ export default function HomeScreen() {
             What Would you like to do today?
           </MyText>
           <View style={styles.cardRow}>
-            <View style={styles.card}>
-              <HomeSystemIcon />
-              <MyText
-                style={{ textAlign: 'center' }}
-                fontFamily="Gilroy-Medium"
-                fontSize={hp(1.6)}
+            {displayedTiles.map(tile => (
+              <Pressable
+                key={tile.id}
+                onLongPress={() => setCustomizationVisible(true)}
+                style={styles.card}
               >
-                Check my System
-              </MyText>
-            </View>
-            <View style={styles.card}>
-              <HomeScheduleIconSvg />
-              <MyText
-                style={{ textAlign: 'center' }}
-                fontFamily="Gilroy-Medium"
-                fontSize={hp(1.6)}
-              >
-                View my Schedule
-              </MyText>
-            </View>
-            <View style={styles.card}>
-              <HomeStartServiceIcon />
-              <MyText
-                style={{ textAlign: 'center' }}
-                fontFamily="Gilroy-Medium"
-                fontSize={hp(1.6)}
-              >
-                Start a Service
-              </MyText>
-            </View>
+                {tile.icon}
+                <MyText
+                  style={{ textAlign: 'center' }}
+                  fontFamily="Gilroy-Medium"
+                  fontSize={hp(1.6)}
+                >
+                  {tile.title}
+                </MyText>
+              </Pressable>
+            ))}
           </View>
         </View>
         <Space mB={hp(2)} />
@@ -130,6 +177,14 @@ export default function HomeScreen() {
           <Space mB={hp(2)} />
         </View>
       </ScrollView>
+
+      <CustomizationSheet
+        visible={customizationVisible}
+        setVisible={setCustomizationVisible}
+        selectedTiles={selectedTiles}
+        setSelectedTiles={setSelectedTiles}
+        allTiles={tiles}
+      />
     </View>
   );
 }

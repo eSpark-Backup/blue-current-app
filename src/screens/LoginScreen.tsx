@@ -72,9 +72,8 @@ const LoginScreen = () => {
             activeOpacity={0.8}
             onPress={() => setShowLoader(true)}
           >
-            <EIcon name="mail" size={wp(6)} color="#fff" />
             <MyText fontSize={hp(2.2)} fontFamily="Outfit-SemiBold">
-              Continue with Email
+              Login
             </MyText>
           </TouchableOpacity>
         </View>

@@ -39,6 +39,15 @@ import VersionLogo from './VersionLogo.svg';
 import VisaLogo from './Visa.svg';
 import PlusSign from './Plus.svg';
 import Card from './Card.svg';
+import HomeNearbyDevices from './HomeNearbyDevIcon.svg';
+import HomeNearbyDevicesWhite from './HomeNearbyDevIconWhite.svg';
+import HomeSchedService from './HomeSchedService.svg';
+import HomeSchedServiceWhite from './HomeSchedServiceWhite.svg';
+import HomeStartTask from './HomeNewTaskIcon.svg';
+import HomeStartTaskWhite from './HomeNewTaskIconWhite.svg';
+import HomeStartServiceWhite from './HomeStartServiceIconWhite.svg';
+import HomeSystemWhite from './HomeSystemWhiteIcon.svg';
+import HomeScheduleServiceWhite from './HomeScheduleIconWhite.svg';
 
 export {
   Home,
@@ -82,4 +91,13 @@ export {
   VisaLogo,
   PlusSign,
   Card,
+  HomeNearbyDevices,
+  HomeNearbyDevicesWhite,
+  HomeSchedService,
+  HomeSchedServiceWhite,
+  HomeStartTask,
+  HomeStartTaskWhite,
+  HomeStartServiceWhite,
+  HomeSystemWhite,
+  HomeScheduleServiceWhite,
 };
