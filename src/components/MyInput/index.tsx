@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#fff',
     fontSize: hp(1.8),
-    paddingVertical: hp(1.5),
+    paddingVertical: hp(1.2),
+    minHeight: hp(5.5),
     fontFamily: 'Outfit-Regular',
   },
   clearIcon: {

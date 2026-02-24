@@ -18,6 +18,7 @@ import MyText from '../../components/MyText';
 import GradientButton from '../../components/GradientButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { EngineerStackParamList } from '../../navigation';
+import { hp } from '../../utils';
 
 const FlowRateCalculator = () => {
     const navigation = useNavigation<StackNavigationProp<EngineerStackParamList>>();
@@ -303,7 +304,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     paddingHorizontal: 10,
-    fontSize: 16,
+    minHeight: hp(5.5),
     color: '#fff',
     marginBottom: 4,
     flexDirection: 'row',
@@ -314,6 +315,8 @@ const styles = StyleSheet.create({
   input: {
     width: '72%',
     color: '#fff',
+    paddingVertical: 10,
+    fontSize: 16,
   },
   inputUnit: {
     fontSize: 10,
