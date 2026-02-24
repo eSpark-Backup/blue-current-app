@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
   metricCardImage: {
     width: wp(12),
     height: wp(12),
-    borderTopLeftRadius: wp(2.5),
-    borderBottomLeftRadius: wp(2.5),
+    borderRadius: wp(2),
     marginRight: wp(2),
+    resizeMode: 'contain',
   },
 });

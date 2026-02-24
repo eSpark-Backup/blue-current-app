@@ -125,37 +125,39 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    flex: 1,
+    width: '100%',
   },
   tabBar: {
     flexDirection: 'row',
     backgroundColor: '#181A20',
     width: '100%',
     alignItems: 'center',
-    minHeight: hp(4.5),
+    minHeight: hp(5.5),
     borderRadius: wp(2.5),
+    paddingHorizontal: wp(1),
   },
   tabTouchable: {
     flex: 1,
   },
   tabButton: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   activeTabBackground: {
-    paddingHorizontal: wp(4),
-    paddingVertical: hp(1),
+    width: '90%',
     borderRadius: wp(2.5),
     alignItems: 'center',
     justifyContent: 'center',
-    top: hp(0.3),
+    height: '80%',
   },
   inactiveTabBackground: {
-    paddingHorizontal: wp(4),
+    width: '90%',
     paddingVertical: hp(1),
     borderRadius: wp(2.5),
     alignItems: 'center',
     justifyContent: 'center',
-    top: hp(0.3),
+    height: '80%',
   },
   activeTabText: {
     color: '#FFFFFF',
