@@ -6541,10 +6541,10 @@ react-native-modal@^14.0.0-rc.1:
   dependencies:
     react-native-animatable "1.4.0"
 
-react-native-permissions@^5.4.2:
-  version "5.4.2"
-  resolved "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-5.4.2.tgz"
-  integrity sha512-XNMoG1fxrB9q73MLn/ZfTaP7pS8qPu0KWypbeFKVTvoR+JJ3O7uedMOTH/mts9bTG+GKhShOoZ+k0CR63q9jwA==
+react-native-permissions@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-5.6.0.tgz#de5df5576c7762bc14da5b418bea025d300dacf6"
+  integrity sha512-iKq7rgAg9cQSy9e/7A6wCj0GYhw+o29Ob4OKC793fniDdwraDNu7D67X4holGJLChUDNzFZH1Qj+YWgrPNsGLw==
 
 react-native-progress@^5.0.1:
   version "5.0.1"
